@@ -96,3 +96,5 @@ Yes, **Oracle Database In-Memory** is available for use under BYOL without requi
 - [Oracle Autonomous Database Documentation](https://docs.oracle.com/en/database/autonomous-database/)
 - [Oracle Autonomous Database on GitHub](https://github.com/oracle)
 
+### Disclaimer
+This document is for educational purposes only. Please refer to the official Oracle documentation for detailed and up-to-date information.
