@@ -127,3 +127,14 @@ It can migrate to either **similar RAC** or **single instance** targets using MA
   - Oracle DB@Azure / @Google Cloud / @AWS
 
 ---
+## 📌 11. How to find Oracle ZDM Whitepaper or technical brief?
+
+**Answer:**
+
+You can use several official Oracle channels and search strategies. Oracle Official Documentation & Tech Briefs :
+
+
+  - https://www.oracle.com/a/ocom/docs/oracle-zdm-technical-brief.pdf
+  - Cloud Premigration Advisor Tool (CPAT) Analyzes Databases for Suitability of Cloud Migration (Doc ID 2758371.1) - Oracle Support (MOS) (requires account): https://support.oracle.com/
+
+---
