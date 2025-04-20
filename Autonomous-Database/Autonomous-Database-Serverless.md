@@ -1,4 +1,4 @@
-# Oracle Autonomous Database Serverless
+# 📦 Oracle Autonomous Database Serverless
 
 ## 📌 1. What is Autonomous Database Serverless?
 Oracle **Autonomous Database Serverless** is a fully-managed, elastic database optimized for various workloads, such as:
@@ -13,7 +13,7 @@ With **serverless infrastructure**, Oracle autonomously handles all aspects of t
 
 ---
 
-## Technical Support and Forums
+# 📦 Technical Support and Forums
 
 ### Is there a technical forum for Autonomous Database?
 Yes, Oracle uses [Stack Overflow](https://stackoverflow.com) for technical questions about Autonomous Database. When posting a question, please use the tag `oracle-autonomous-db`.
@@ -27,7 +27,7 @@ Yes, Oracle provides a **TCO report builder** for **Autonomous Database Serverle
 
 ---
 
-## Architecture
+# 📦 Architecture
 
 ### How does Autonomous Database Serverless configure parallelism?
 Autonomous Database Serverless comes with five preconfigured database services:
@@ -52,7 +52,7 @@ Yes, **Database In-Memory** is available and can be used to optimize performance
 
 ---
 
-## Migration
+# 📦 Migration
 
 ### Can non-Oracle databases be migrated to Autonomous Database Serverless?
 Yes, Oracle **SQL Developer** provides migration wizards to migrate data from non-Oracle databases such as:
@@ -68,7 +68,7 @@ These wizards export the metadata and data from the source database and import t
 
 ---
 
-## Pricing and Licensing
+# 📦 Pricing and Licensing
 
 ## 📌 4. Can I reuse my existing Oracle Database licenses with Autonomous Database?
 Yes, you can bring your existing Oracle Database licenses to Autonomous Database under the **Bring Your Own License (BYOL)** model.
@@ -92,7 +92,7 @@ Yes, **Oracle Database In-Memory** is available for use under BYOL without requi
 
 ---
 
-## Additional Resources
+# 📦 Additional Resources
 - [Oracle Autonomous Database Documentation](https://docs.oracle.com/en/database/autonomous-database/)
 - [Oracle Autonomous Database on GitHub](https://github.com/oracle)
 
