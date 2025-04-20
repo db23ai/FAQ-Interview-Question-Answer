@@ -137,16 +137,7 @@ You can use several official Oracle channels and search strategies. Oracle Offic
   - https://www.oracle.com/a/ocom/docs/oracle-zdm-technical-brief.pdf
   - Cloud Premigration Advisor Tool (CPAT) Analyzes Databases for Suitability of Cloud Migration (Doc ID 2758371.1) - Oracle Support (MOS) (requires account): https://support.oracle.com/
   - https://docs.oracle.com/en/database/oracle/zero-downtime-migration/21.1/zdmug/move-oracle-cloud-using-zero-downtime-migration.pdf
-[  - Oracle Zero Downtime Migration
-Doc: Move to Oracle Cloud Using Zero Downtime Migration
-Part 1/5: Zero Downtime Migration (ZDM) – Introduction & Installation (this blog post)
-Part 2/5: Zero Downtime Migration (ZDM) – Logical Online Migration using Oracle GoldenGate
-Part 3/5: Zero Downtime Migration (ZDM) – Logical Offline Migration using Data Pump
-Part 4/5: Zero Downtime Migration (ZDM) – Physical Online Migration using Data Guard
-Part 5/5: Zero Downtime Migration (ZDM) – Physical Offline Migration using RMAN
-Use an Existing RMAN Backup with Zero Downtime Migration
-AWS RDS for Oracle to Autonomous Database using Zero Downtime Migration
-Zero Downtime Migration (ZDM) – Logical Offline Migration to Co-Managed Database Services
-Zero Downtime Migration (ZDM) – Logical Online Migration to VM DB Systems](https://database-heartbeat.com/2021/04/15/part-2-5-zero-downtime-migration-zdm-logical-online-migration-using-oracle-goldengate/)
+  - https://www.oracle.com/database/technologies/rac/zdm.html
+
 
 ---
