@@ -1,5 +1,5 @@
 
-# 📦 Oracle Zero Downtime Migration (ZDM) – Interview Questions & FAQ
+# 📦 Oracle Zero Downtime Migration (ZDM) – FAQ
 
 **Oracle Zero Downtime Migration (ZDM)** is an automated Oracle tool designed to simplify and automate Oracle database migrations with minimal or zero downtime, leveraging **Oracle Maximum Availability Architecture (MAA)** best practices.
 
