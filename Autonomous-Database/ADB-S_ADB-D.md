@@ -1,6 +1,4 @@
-# Oracle Autonomous Database
-
-## General Information
+# 📦 Oracle Autonomous Database
 
 ## 📌 1. What is the Oracle Autonomous Database?
 Oracle Autonomous Database is the world’s first autonomous data management in the cloud. It delivers automated patching, upgrades, and tuning—including performing all routine database maintenance tasks while the system is running—without human intervention. 
@@ -39,7 +37,7 @@ A wealth of resources are available to help you get started and be successful wi
 
 ---
 
-## Pricing and Licensing
+# 📦 Pricing and Licensing
 
 ## 📌 5. What is the price of Oracle Autonomous Database?
 Pricing details can be found on the [Autonomous Data Warehouse (ADW)](https://www.oracle.com/database/autonomous-database/pricing.html) or [Autonomous Transaction Processing (ATP)](https://www.oracle.com/database/autonomous-database/pricing.html) pages.
@@ -66,7 +64,7 @@ Yes, ADB offers 30-day free trials. [Sign up here](https://www.oracle.com/databa
 
 ---
 
-## Security
+# 📦 Security
 
 ## 📌 10. Can a customer manage their own encryption keys?
 Yes, you can manage your own encryption keys. More details [here](https://www.oracle.com/database/autonomous-database/security.html).
@@ -90,7 +88,7 @@ Yes, Database Vault is available, and can be combined with Oracle Data Safe for 
 
 ---
 
-## Availability
+# 📦 Availability
 
 ## 📌 14. What is the current availability SLA for Oracle Autonomous Database?
 The SLA for ADB is 99.95% availability. Higher availability levels (99.995%) can be achieved with **Autonomous Data Guard**.
@@ -107,7 +105,7 @@ Oracle is responsible for getting the service back online as quickly as possible
 
 ---
 
-## Connecting to Oracle Autonomous Database
+# 📦 Connecting to Oracle Autonomous Database
 
 ## 📌 17. Does ADB provide a web-based tool for end users?
 Yes, **Database Actions** is a built-in toolkit for development, administration, and monitoring.
@@ -126,7 +124,7 @@ Yes, ADB supports connectivity to various non-Oracle databases like PostgreSQL, 
 
 ---
 
-## Loading Data
+# 📦 Loading Data
 
 ## 📌 20. What are the options for loading data into Oracle Autonomous Database?
 - **Object Storage Integration**: Upload files to supported object stores like Oracle Object Storage, AWS S3, and Azure Blob Storage.
@@ -146,7 +144,7 @@ Yes, ADB can synchronize metadata with **OCI Data Catalog** to support data gove
 
 ---
 
-### Schema Design and Querying
+## 📦 Schema Design and Querying
 
 ## 📌 23. Does ADB automatically create and manage indexes?
 Yes, ADB can automatically create indexes, but auto-indexing is not enabled by default.
@@ -158,14 +156,14 @@ Yes, ADB supports auto-partitioning, but it is not enabled by default.
 
 ---
 
-## Performance
+# 📦 Performance
 
 ## 📌 25. How does Oracle Autonomous Database isolate customer workloads for performance?
 ADB uses **Database Resource Manager** and **IO Resource Manager** to ensure that each customer gets dedicated CPU, memory, and IO resources without over-provisioning, ensuring predictable performance.
 
 ---
 
-## Migration
+# 📦 Migration
 
 ## 📌 26. How can I migrate my existing Oracle Database to Oracle Autonomous Database?
 Use **Data Pump** for schema migration. For real-time sync, Oracle **GoldenGate** can replicate changes. Learn more about migration [here](https://www.oracle.com/database/autonomous-database/migration.html).
@@ -177,7 +175,7 @@ Yes, the **Cloud Premigration Advisor Tool (CPAT)** helps analyze Oracle Databas
 
 ---
 
-## Managing and Monitoring
+# 📦 Managing and Monitoring
 
 ## 📌 28. Is there an option to delay or reschedule patches?
 With **Serverless** deployments, patches occur automatically within predefined maintenance windows. With **Dedicated** deployments, you can manage maintenance schedules.
