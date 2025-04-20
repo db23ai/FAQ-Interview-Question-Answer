@@ -137,7 +137,7 @@ You can use several official Oracle channels and search strategies. Oracle Offic
   - https://www.oracle.com/a/ocom/docs/oracle-zdm-technical-brief.pdf
   - Cloud Premigration Advisor Tool (CPAT) Analyzes Databases for Suitability of Cloud Migration (Doc ID 2758371.1) - Oracle Support (MOS) (requires account): https://support.oracle.com/
   - https://docs.oracle.com/en/database/oracle/zero-downtime-migration/21.1/zdmug/move-oracle-cloud-using-zero-downtime-migration.pdf
-  - https://www.oracle.com/database/technologies/rac/zdm.html
+  - [Oracle Zero Downtime Migration](https://www.oracle.com/database/technologies/rac/zdm.html)
 
 
 ---
