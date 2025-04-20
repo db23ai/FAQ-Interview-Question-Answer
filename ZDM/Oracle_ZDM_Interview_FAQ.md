@@ -140,7 +140,7 @@ You can use several official Oracle channels and search strategies. Oracle Offic
 - 📄 [Oracle ZDM Technical Brief (PDF)](https://www.oracle.com/a/ocom/docs/oracle-zdm-technical-brief.pdf)  
 - 🔍 [Cloud Premigration Advisor Tool (CPAT) – Oracle Support (Doc ID 2758371.1)](https://support.oracle.com/) *(Oracle Support account required)*  
 - 🌐 [Oracle Zero Downtime Migration Overview](https://www.oracle.com/database/technologies/rac/zdm.html)
-- 🌐 [Oracle Zero Downtime Migration ](https://www.oracle.com/a/tech/docs/oracle-zdm-step-by-step-guide.pdf)
+- 🌐 [ZDM Physical Migration Step by Step Guide ](https://www.oracle.com/a/tech/docs/oracle-zdm-step-by-step-guide.pdf)
 
 ---
 
