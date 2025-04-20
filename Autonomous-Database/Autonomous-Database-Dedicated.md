@@ -1,8 +1,7 @@
 # 📦 Oracle Autonomous Database Dedicated
 
-## Overview
 
-### What is Autonomous Database Dedicated (ADB-D)?
+## 📌 1. What is Autonomous Database Dedicated (ADB-D)?
 **Autonomous Database Dedicated (ADB-D)** is a deployment option that allows customers to provision Oracle Autonomous Databases on their own dedicated **Exadata Cloud Infrastructure**. 
 
 ADB-D offers full customization over operational policies and provides software and hardware isolation for enhanced performance and security governance. It is well-suited for customers who need:
@@ -14,7 +13,7 @@ This solution is ideal for organizations that require high-performance, security
 
 ---
 
-## Differences Between Autonomous Database Dedicated and Serverless
+## 📌 2. Differences Between Autonomous Database Dedicated and Serverless
 
 ### **Serverless (ADB-S)**:
 - Multiple customers share resources within the **Exadata Cloud Infrastructure**.
@@ -34,7 +33,7 @@ This solution is ideal for organizations that require high-performance, security
 
 ---
 
-## When to Use ADB Dedicated vs. ADB Serverless
+## 📌 3. When to Use ADB Dedicated vs. ADB Serverless
 
 - **ADB-S**: 
    - Best for customers looking for the highest level of autonomy with minimal setup. Think of it like a fully autonomous vehicle with no need for manual controls.
