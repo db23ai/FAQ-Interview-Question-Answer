@@ -159,10 +159,10 @@ You can use several official Oracle channels and search strategies. Oracle Offic
 
 ### 🛠️ Additional Use Cases
 
-- [Use an Existing RMAN Backup with ZDM](docs/zdm/use-rman-backup.md)  
-- [AWS RDS for Oracle to Autonomous Database using ZDM](docs/zdm/aws-rds-to-adb.md)  
-- [ZDM – Logical Offline Migration to Co-Managed Database Services](docs/zdm/logical-offline-co-managed.md)  
-- [ZDM – Logical Online Migration to VM DB Systems](docs/zdm/logical-online-vm-db.md)
+- [Use an Existing RMAN Backup with ZDM](docs/zdm/use-rman-backup)  
+- [AWS RDS for Oracle to Autonomous Database using ZDM](docs/zdm/aws-rds-to-adb)  
+- [ZDM – Logical Offline Migration to Co-Managed Database Services](docs/zdm/logical-offline-co-managed)  
+- [ZDM – Logical Online Migration to VM DB Systems](docs/zdm/logical-online-vm-db)
 
 ---
 
