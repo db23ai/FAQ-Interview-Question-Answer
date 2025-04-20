@@ -106,3 +106,6 @@ There are two main components of pricing:
 # 📦 Additional Resources
 - [Autonomous Database on Exadata Cloud@Customer Documentation](https://www.oracle.com/database/autonomous-database-on-exadata-cloud-at-customer.html)
 - [Exadata Cloud@Customer Overview](https://www.oracle.com/cloud/exadata-cloud-customer.html)
+
+### Disclaimer
+This document is for educational purposes only. Please refer to the official Oracle documentation for detailed and up-to-date information.  
