@@ -1,4 +1,4 @@
-# Oracle Autonomous Database on Exadata Cloud@Customer (ADB-ExaC@C)
+# 📦 Oracle Autonomous Database on Exadata Cloud@Customer (ADB-ExaC@C)
 
 ## Overview
 
@@ -30,7 +30,7 @@ While **Autonomous Database Dedicated** on both **OCI** and **Exadata Cloud@Cust
 
 ---
 
-## Operational Management
+# 📦 Operational Management
 
 ### Who is Responsible for Backup and Restore on Exadata Cloud@Customer?
 - **Oracle** manages backup and restore operations using **object storage** and **local Exadata storage**.
@@ -46,7 +46,7 @@ While **Autonomous Database Dedicated** on both **OCI** and **Exadata Cloud@Cust
 
 ---
 
-## Architecture and Scalability
+# 📦 Architecture and Scalability
 
 ### Exadata Infrastructure Supported for ADB Dedicated on OCI
 - **Exadata X8** and **X7** Quarter, Half, and Full Racks are supported.
@@ -65,7 +65,7 @@ While **Autonomous Database Dedicated** on both **OCI** and **Exadata Cloud@Cust
 
 ---
 
-## Managing and Monitoring
+# 📦 Managing and Monitoring
 
 ### What is the Role of a Fleet Administrator in ADB Dedicated?
 - A **Fleet Administrator** manages **Autonomous Exadata Infrastructure (AEI)** and **Autonomous Container Database (ACD)** resources.
@@ -86,7 +86,7 @@ Yes, **Enterprise Manager (EM 13.3+)** can be used to monitor both **ADB Dedicat
 
 ---
 
-## Pricing and Licensing
+# 📦 Pricing and Licensing
 
 ### How is ADB Dedicated Priced?
 There are two main components of pricing:
@@ -103,6 +103,6 @@ There are two main components of pricing:
 
 ---
 
-## Additional Resources
+# 📦 Additional Resources
 - [Autonomous Database on Exadata Cloud@Customer Documentation](https://www.oracle.com/database/autonomous-database-on-exadata-cloud-at-customer.html)
 - [Exadata Cloud@Customer Overview](https://www.oracle.com/cloud/exadata-cloud-customer.html)
