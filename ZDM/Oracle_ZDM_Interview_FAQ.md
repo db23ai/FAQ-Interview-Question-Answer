@@ -153,20 +153,20 @@ You can use several official Oracle channels and search strategies. Oracle Offic
 
 ## 📚 Core Migration Scenarios
 
-**Part 1/5:** [ZDM – Introduction & Installation](https://yourwebsite.com/zdm-introduction-installation)  
-**Part 2/5:** [ZDM – Logical Online Migration using Oracle GoldenGate](https://yourwebsite.com/zdm-logical-online-migration)  
-**Part 3/5:** [ZDM – Logical Offline Migration using Data Pump](https://yourwebsite.com/zdm-logical-offline-migration)  
-**Part 4/5:** [ZDM – Physical Online Migration using Data Guard](https://yourwebsite.com/zdm-physical-online-migration)  
-**Part 5/5:** [ZDM – Physical Offline Migration using RMAN](https://yourwebsite.com/zdm-physical-offline-migration)
+**Part 1/5:** [ZDM – Introduction & Installation](https://database-heartbeat.com/2021/04/12/part-1-5-zero-downtime-migration-zdm-introduction-installation/)  
+**Part 2/5:** [ZDM – Logical Online Migration using Oracle GoldenGate](https://database-heartbeat.com/2021/04/15/part-2-5-zero-downtime-migration-zdm-logical-online-migration-using-oracle-goldengate/)  
+**Part 3/5:** [ZDM – Logical Offline Migration using Data Pump](https://database-heartbeat.com/2021/04/20/part-3-5-zero-downtime-migration-zdm-logical-offline-migration-using-data-pump/)  
+**Part 4/5:** [ZDM – Physical Online Migration using Data Guard](https://database-heartbeat.com/2021/04/27/part-4-5-zero-downtime-migration-zdm-physical-online-migration-using-data-guard/)  
+**Part 5/5:** [ZDM – Physical Offline Migration using RMAN](https://database-heartbeat.com/2021/05/04/part-5-5-zero-downtime-migration-zdm-physical-offline-migration-using-rman/)
 
 ---
 
 ## 🛠️ Additional Use Cases
 
-- 🔁 [Use an Existing RMAN Backup with ZDM](https://yourwebsite.com/rman-backup-zdm)  
-- ☁️ [AWS RDS for Oracle to Autonomous Database using ZDM](https://yourwebsite.com/aws-rds-to-autonomous-db-zdm)  
-- 🗃️ [ZDM – Logical Offline Migration to Co-Managed Database Services](https://yourwebsite.com/zdm-logical-offline-co-managed)  
-- 🚀 [ZDM – Logical Online Migration to VM DB Systems](https://yourwebsite.com/zdm-logical-online-vm-db-systems)  
+- 🔁 [Use an Existing RMAN Backup with ZDM](https://database-heartbeat.com/2021/09/07/zdm-existing-backup/)  
+- ☁️ [AWS RDS for Oracle to Autonomous Database using ZDM](https://database-heartbeat.com/2021/09/01/rds-adb-zdm/)  
+- 🗃️ [ZDM – Logical Offline Migration to Co-Managed Database Services](https://database-heartbeat.com/2021/11/15/zdm-logical-offline-dbcs/)  
+- 🚀 [ZDM – Logical Online Migration to VM DB Systems](https://database-heartbeat.com/2022/02/17/zdm-logical-online-dbcs/)  
 
 
 ---
