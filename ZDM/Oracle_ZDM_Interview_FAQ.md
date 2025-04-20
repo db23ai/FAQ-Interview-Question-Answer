@@ -165,13 +165,5 @@ You can use several official Oracle channels and search strategies. Oracle Offic
 
 ---
 
-### 📢 Disclaimer
-
-> ⚠️ This content is intended for **learning and educational purposes only**. It is not officially endorsed by Oracle. Always refer to Oracle’s official documentation and support channels for production use.
-
-
-
-
-
-
----
+### Disclaimer
+This document is for educational purposes only. Please refer to the official Oracle documentation for detailed and up-to-date information.
