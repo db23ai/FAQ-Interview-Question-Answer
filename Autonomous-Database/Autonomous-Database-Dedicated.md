@@ -44,3 +44,6 @@ This solution is ideal for organizations that require high-performance, security
    - Best for customers needing isolation, customization of operational policies, or governance of workloads at scale.
    - Suitable for organizations
 
+### Disclaimer
+This document is for educational purposes only. Please refer to the official Oracle documentation for detailed and up-to-date information.     
+
