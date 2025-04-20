@@ -1,8 +1,6 @@
 # Oracle Autonomous Database Serverless
 
-## Overview
-
-### What is Autonomous Database Serverless?
+## 📌 1. What is Autonomous Database Serverless?
 Oracle **Autonomous Database Serverless** is a fully-managed, elastic database optimized for various workloads, such as:
 - **Data Warehousing and Analytics**
 - **Transactional/Mixed Workloads**
@@ -22,7 +20,7 @@ Yes, Oracle uses [Stack Overflow](https://stackoverflow.com) for technical quest
 
 ---
 
-### Is it possible to construct a TCO (Total Cost of Ownership) report for Autonomous Database Serverless?
+## 📌 2. Is it possible to construct a TCO (Total Cost of Ownership) report for Autonomous Database Serverless?
 Yes, Oracle provides a **TCO report builder** for **Autonomous Database Serverless for Data Warehousing**. This tool helps you calculate the value of automation and estimate savings. 
 
 [Try the TCO report builder](https://www.oracle.com/database/autonomous-database/tco-report.html)
@@ -47,7 +45,7 @@ Parallelism is automatically configured based on the number of CPUs you provisio
 
 ---
 
-### Is the Database In-Memory option available in Autonomous Database Serverless?
+## 📌 3. Is the Database In-Memory option available in Autonomous Database Serverless?
 Yes, **Database In-Memory** is available and can be used to optimize performance in Autonomous Database. 
 
 [Learn more about Database In-Memory](https://www.oracle.com/database/database-in-memory.html)
@@ -72,24 +70,24 @@ These wizards export the metadata and data from the source database and import t
 
 ## Pricing and Licensing
 
-### Can I reuse my existing Oracle Database licenses with Autonomous Database?
+## 📌 4. Can I reuse my existing Oracle Database licenses with Autonomous Database?
 Yes, you can bring your existing Oracle Database licenses to Autonomous Database under the **Bring Your Own License (BYOL)** model.
 
 [Learn more about BYOL and pricing](https://www.oracle.com/database/autonomous-database/pricing.html)
 
 ---
 
-### Can I use the machine learning features in Autonomous Database Serverless with BYOL if I haven't licensed Oracle Advanced Analytics?
+## 📌 5. Can I use the machine learning features in Autonomous Database Serverless with BYOL if I haven't licensed Oracle Advanced Analytics?
 Yes, **Oracle Advanced Analytics** licenses are not required to use machine learning features in Autonomous Database when using the BYOL option.
 
 ---
 
-### Can I use the in-database spatial and graph features in Autonomous Database Serverless with BYOL if I haven't licensed Oracle Spatial and Graph?
+## 📌 6. Can I use the in-database spatial and graph features in Autonomous Database Serverless with BYOL if I haven't licensed Oracle Spatial and Graph?
 Yes, **Oracle Spatial and Graph** licenses are not required for the BYOL option.
 
 ---
 
-### Can I use the in-memory features of Autonomous Database Serverless with BYOL if I haven't licensed the in-memory option?
+## 📌 7. Can I use the in-memory features of Autonomous Database Serverless with BYOL if I haven't licensed the in-memory option?
 Yes, **Oracle Database In-Memory** is available for use under BYOL without requiring a separate license.
 
 ---
