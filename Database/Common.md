@@ -98,7 +98,7 @@ Used for large tables to improve query performance and manageability.
 
 ---
 
-### 1. 🧑‍💼 Write a SQL query to find the second highest salary from an employee table.
+### 9. 🧑‍💼 Write a SQL query to find the second highest salary from an employee table.
 
 ```sql
 SELECT MAX(salary) AS SecondHighest
@@ -108,7 +108,7 @@ WHERE salary < (SELECT MAX(salary) FROM employees);
 
 ---
 
-### 2. 🐢 How would you optimize a query that’s running slow?
+### 10. 🐢 How would you optimize a query that’s running slow?
 
 **Answer:**
 
@@ -120,7 +120,7 @@ WHERE salary < (SELECT MAX(salary) FROM employees);
 
 ---
 
-### 3. ⚠️ What are some common performance bottlenecks in a database, and how would you address them?
+### 11. ⚠️ What are some common performance bottlenecks in a database, and how would you address them?
 
 **Answer:**
 
@@ -131,7 +131,7 @@ WHERE salary < (SELECT MAX(salary) FROM employees);
 
 ---
 
-### 4. 🔗 What are the differences between INNER JOIN, LEFT JOIN, and RIGHT JOIN?
+### 12. 🔗 What are the differences between INNER JOIN, LEFT JOIN, and RIGHT JOIN?
 
 **Answer:**
 
@@ -141,7 +141,7 @@ WHERE salary < (SELECT MAX(salary) FROM employees);
 
 ---
 
-### 5. 🧭 Explain what an execution plan is and how you would use it to optimize a query.
+### 13. 🧭 Explain what an execution plan is and how you would use it to optimize a query.
 
 **Answer:**
 
@@ -158,7 +158,7 @@ Use it to find inefficient paths and refactor queries.
 
 ---
 
-### 1. 🛑 How would you ensure data integrity and prevent data loss in a large-scale production environment?
+### 14. 🛑 How would you ensure data integrity and prevent data loss in a large-scale production environment?
 
 **Answer:**
 
@@ -169,7 +169,7 @@ Use it to find inefficient paths and refactor queries.
 
 ---
 
-### 2. 🌀 What strategies do you employ for disaster recovery (DR)?
+### 15. 🌀 What strategies do you employ for disaster recovery (DR)?
 
 **Answer:**
 
@@ -180,7 +180,7 @@ Use it to find inefficient paths and refactor queries.
 
 ---
 
-### 3. 💽 Describe your approach to implementing backup strategies for large, mission-critical databases.
+### 16. 💽 Describe your approach to implementing backup strategies for large, mission-critical databases.
 
 **Answer:**
 
@@ -191,7 +191,7 @@ Use it to find inefficient paths and refactor queries.
 
 ---
 
-### 4. 🔐 How do you ensure database security, and what best practices do you follow for protecting sensitive data?
+### 17. 🔐 How do you ensure database security, and what best practices do you follow for protecting sensitive data?
 
 **Answer:**
 
@@ -207,7 +207,7 @@ Use it to find inefficient paths and refactor queries.
 
 ---
 
-### 1. 🧬 Explain replication and the different types of replication mechanisms (master-slave, peer-to-peer).
+### 18. 🧬 Explain replication and the different types of replication mechanisms (master-slave, peer-to-peer).
 
 **Answer:**
 
@@ -218,7 +218,7 @@ Used for load balancing and DR.
 
 ---
 
-### 2. 🆙 How do you ensure high availability in a production database environment?
+### 19. 🆙 How do you ensure high availability in a production database environment?
 
 **Answer:**
 
@@ -229,7 +229,7 @@ Used for load balancing and DR.
 
 ---
 
-### 3. ⚖️ What are the differences between sharding and partitioning in a distributed database system?
+### 20. ⚖️ What are the differences between sharding and partitioning in a distributed database system?
 
 **Answer:**
 
@@ -240,7 +240,7 @@ Sharding improves horizontal scalability; partitioning optimizes queries on larg
 
 ---
 
-### 4. 🔁 How would you handle database failover and ensure minimal downtime?
+### 21. 🔁 How would you handle database failover and ensure minimal downtime?
 
 **Answer:**
 
@@ -250,3 +250,130 @@ Sharding improves horizontal scalability; partitioning optimizes queries on larg
 - Monitor and alert for failover events
 
 ---
+
+# 🏛️ Oracle DBA Interview Q&A
+
+A compilation of essential Oracle DBA concepts and troubleshooting techniques frequently asked in interviews and practical scenarios.
+
+---
+
+## 🧠 Oracle Core Concepts
+
+### 22. What is a Checkpoint and When Does It Occur?
+A **checkpoint** flushes dirty buffers from memory to disk and updates datafile headers with the latest SCN. It occurs during:
+- Log switches
+- Database shutdowns
+- Based on parameters like `LOG_CHECKPOINT_INTERVAL` and `LOG_CHECKPOINT_TIMEOUT`
+
+### 23. Benefits of ASM (Automatic Storage Management)
+- Automatic striping and mirroring
+- Simplified storage management
+- Online disk rebalancing
+- Improved I/O performance
+- Easy scalability
+
+### 24. How Rebalancing Works in ASM
+- Triggered when disks are added/removed
+- Managed by background processes:
+  - `RBAL` (Rebalance Coordinator)
+  - `ARBn` (Rebalance Slaves)
+
+### 25. How to Replace an Existing Disk in ASM
+- Add new disk: `ALTER DISKGROUP dgname ADD DISK ...`
+- Drop old disk: `ALTER DISKGROUP dgname DROP DISK ...`
+- ASM will automatically rebalance data
+
+---
+
+## ⚙️ Oracle RAC (Real Application Clusters)
+
+### 26. RAC Architecture and Background Processes
+- Shared database with multiple instances
+- Each instance has its own SGA
+- Key background processes:
+  - `LMD`, `LMS`, `LMON`, `LCK`
+
+### 27. Cache Fusion
+Allows data blocks to be transferred between instances via interconnect without disk I/O, maintaining consistency.
+
+### 28. Scalability Features of RAC
+- Add nodes to scale horizontally
+- Load balancing via services
+- High availability and fault tolerance
+- Distributed workload across instances
+
+---
+
+## 💾 Backup & Disaster Recovery
+
+### 29. RMAN and Its New Features
+- Block change tracking
+- Data Recovery Advisor
+- Cloud backup support
+- Duplicate database with minimal effort
+
+---
+
+## 🔁 Data Guard
+
+### 30. Difference Between Physical and Logical Standby
+- **Physical Standby**: Redo Apply, block-for-block replica
+- **Logical Standby**: SQL Apply, allows data manipulation and reporting
+
+### 31. How Logical Standby Converts Archive to SQL
+- Uses **LogMiner** to transform redo into SQL
+- Applied via **Logical Standby Process (LSP)**
+
+### 32. Difference Between Max Performance and Max Availability
+- **Max Performance**: Async redo, best performance
+- **Max Availability**: Sync redo, minimal/no data loss
+
+### 33. Sync, Async, Affirm, NoAffirm
+- **SYNC**: Redo written and acknowledged
+- **ASYNC**: Redo sent but not waited for acknowledgment
+- **AFFIRM**: Confirmation needed from standby
+- **NOAFFIRM**: No confirmation from standby
+
+---
+
+## 🧱 Performance Tuning & Troubleshooting
+
+### 34. What is ITL Blocking?
+Occurs when all ITL (Interested Transaction List) slots are occupied, blocking new transactions until one is released.
+
+### 35. What is a Histogram?
+Describes the distribution of column values to help the optimizer choose efficient query plans.
+
+### 36. How to Troubleshoot Slowness and Long-Running Queries
+- Analyze AWR/ASH reports
+- Review execution plans
+- Monitor wait events and locks
+
+### 37. How to Read an AWR Report
+- Focus on Top SQL, Wait Events, Load Profile
+- Compare snapshots to identify spikes or regressions
+
+### 38. Slowness Today, But Was Fast Yesterday 5–6PM – Troubleshooting Approach
+- Compare AWR snapshots between both time periods
+- Check execution plans, locking, stats changes
+- Monitor system resources
+
+### 39. How Query Plan Changes, and How to Fix It
+- Caused by stats change, bind peeking, adaptive plans
+- Use SQL Plan Baselines or SQL Profiles to lock the plan
+
+---
+
+## 📊 Statistics & Monitoring
+
+### 40. How to Gather Stats for Specific Partitions
+
+```sql
+BEGIN
+  DBMS_STATS.GATHER_TABLE_STATS(
+    ownname => 'SCHEMA',
+    tabname => 'TABLE_NAME',
+    partname => 'PARTITION_NAME'
+  );
+END;
+
