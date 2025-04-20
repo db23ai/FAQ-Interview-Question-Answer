@@ -133,11 +133,45 @@ It can migrate to either **similar RAC** or **single instance** targets using MA
 
 You can use several official Oracle channels and search strategies. Oracle Official Documentation & Tech Briefs :
 
+# 🛡️ Oracle Zero Downtime Migration (ZDM) Documentation Series
 
-  - https://www.oracle.com/a/ocom/docs/oracle-zdm-technical-brief.pdf
-  - Cloud Premigration Advisor Tool (CPAT) Analyzes Databases for Suitability of Cloud Migration (Doc ID 2758371.1) - Oracle Support (MOS) (requires account): https://support.oracle.com/
-  - https://docs.oracle.com/en/database/oracle/zero-downtime-migration/21.1/zdmug/move-oracle-cloud-using-zero-downtime-migration.pdf
-  - [Oracle Zero Downtime Migration](https://www.oracle.com/database/technologies/rac/zdm.html)
+## 🔗 Official Resources
+
+- 📄 [Oracle ZDM Technical Brief (PDF)](https://www.oracle.com/a/ocom/docs/oracle-zdm-technical-brief.pdf)  
+- 🔍 [Cloud Premigration Advisor Tool (CPAT) – Oracle Support (Doc ID 2758371.1)](https://support.oracle.com/) *(Oracle Support account required)*  
+- 🌐 [Oracle Zero Downtime Migration Overview](https://www.oracle.com/database/technologies/rac/zdm.html)
+
+---
+
+## 📘 Documentation Series
+
+**Main Guide:**  
+👉 [Move to Oracle Cloud Using Zero Downtime Migration](docs/zdm/intro.md)
+
+### 📂 Migration Scenarios (Blog Series: Part 1–5)
+
+1. [Part 1/5: ZDM – Introduction & Installation](docs/zdm/part1-intro-install.md)  
+2. [Part 2/5: ZDM – Logical Online Migration using Oracle GoldenGate](docs/zdm/part2-logical-online-goldengate.md)  
+3. [Part 3/5: ZDM – Logical Offline Migration using Data Pump](docs/zdm/part3-logical-offline-datapump.md)  
+4. [Part 4/5: ZDM – Physical Online Migration using Data Guard](docs/zdm/part4-physical-online-dataguard.md)  
+5. [Part 5/5: ZDM – Physical Offline Migration using RMAN](docs/zdm/part5-physical-offline-rman.md)
+
+### 🛠️ Additional Use Cases
+
+- [Use an Existing RMAN Backup with ZDM](docs/zdm/use-rman-backup.md)  
+- [AWS RDS for Oracle to Autonomous Database using ZDM](docs/zdm/aws-rds-to-adb.md)  
+- [ZDM – Logical Offline Migration to Co-Managed Database Services](docs/zdm/logical-offline-co-managed.md)  
+- [ZDM – Logical Online Migration to VM DB Systems](docs/zdm/logical-online-vm-db.md)
+
+---
+
+### 📢 Disclaimer
+
+> ⚠️ This content is intended for **learning and educational purposes only**. It is not officially endorsed by Oracle. Always refer to Oracle’s official documentation and support channels for production use.
+
+
+
+
 
 
 ---
