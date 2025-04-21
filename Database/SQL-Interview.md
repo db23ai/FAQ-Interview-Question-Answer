@@ -1,9 +1,5 @@
 # SQL Interview Questions and Answers
 
-This document provides a collection of common SQL interview questions and their corresponding answers to help you prepare for SQL-related interviews.
-
----
-
 ## 1. What is SQL?
 
 **Answer:**  
