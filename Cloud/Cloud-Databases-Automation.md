@@ -351,6 +351,8 @@ Notes for Use:
 •	Prepare for Follow-Ups: Expect deeper questions on tools (e.g., Terraform vs. CloudFormation) or specific scenarios.
 •	Company Context: Research the company’s cloud provider (AWS, Azure, etc.) or industry to align answers.
 •	Quantify Impact: Use numbers (e.g., 25% cost reduction, 50% faster deployments) to demonstrate measurable success.
+
+
 Difference Between MS Azure and OCI 
 Here’s a detailed comparison between Microsoft Azure and Oracle Cloud Infrastructure (OCI), focusing on key aspects relevant to enterprise IT decision-makers:
  
@@ -392,9 +394,14 @@ Criteria	Microsoft Azure	Oracle Cloud Infrastructure (OCI)
 Best For	Enterprises utilizing Microsoft products, seeking hybrid cloud solutions	Organizations running Oracle applications, requiring high-performance computing
 
 
+
+<img width="468" alt="image" src="https://github.com/user-attachments/assets/48ae3d1f-75e2-48de-8134-c9c1cd4f5353" />
+
+
+
  
 
 
 
-![image](https://github.com/user-attachments/assets/a20a1320-33df-4b79-bc3a-490b50fe2d9f)
+
 
