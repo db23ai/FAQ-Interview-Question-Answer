@@ -1,34 +1,6 @@
 
 # **RAC Commands Quick Guide**
 
-**By:** SARAVANAKUMAR K  
-[Blog](https://skumar22k.blogspot.com/)  
-[LinkedIn](https://www.linkedin.com/in/saravanakumar-k-87768914/)
-
----
-
-## :book: **Table of Contents**
-
-- [Clusterware Utilities](#clusterware-utilities)
-- [Checking Resource Status](#checking-resource-status)
-- [Starting and Stopping the Cluster and OHAS Locally and Remotely (as root)](#starting-and-stopping-the-cluster-and-ohas-locally-and-remotely-as-root)
-- [Enabling or Disabling Cluster Resource Auto-Start](#enabling-or-disabling-cluster-resource-auto-start)
-- [CRS Log and Its Use](#crs-log-and-its-use)
-- [Oracle Clusterware Configuration Files](#oracle-clusterware-configuration-files)
-- [OCR Backup and Maintenance](#ocr-backup-and-maintenance)
-- [Voting Disk Management](#voting-disk-management)
-- [OLR Location, Data, Export and Import](#olr-location-data-export-and-import)
-- [SCAN Configuration Information](#scan-configuration-information)
-- [Cluster Database Start and Stop](#cluster-database-start-and-stop)
-- [Cluster Instances Start and Stop](#cluster-instances-start-and-stop)
-- [ASM Start, Stop, Status, and Configuration](#asm-start-stop-status-and-configuration)
-- [Nodeapps Start, Stop, Status, and Configuration](#nodeapps-start-stop-status-and-configuration)
-- [Network Interface Configuration – List, Get, Set and Delete](#network-interface-configuration--list-get-set-and-delete)
-- [Cluster Node Information](#cluster-node-information)
-- [Database Service Start and Stop, Add, Modify, Relocate and Remove](#database-service-start-and-stop-add-modify-relocate-and-remove)
-- [Miscellaneous Commands](#miscellaneous-commands)
-
----
 
 ## :zap: **Clusterware Utilities**
 
@@ -224,4 +196,3 @@ srvctl start service -d <db_unique_name> -s <service_name_list>
 
 ---
 
-For more details, visit the [blog](https://skumar22k.blogspot.com/).
