@@ -89,6 +89,6 @@ This document provides a comprehensive list of `zdmcli` commands used in Oracle 
 
 ---
 
-## 🔒 License
+## 🔒 Disclaimer
 
-Distributed under the MIT License. See `LICENSE` for more information.
+This document is for educational purposes only. Please refer to the official Oracle documentation for detailed and up-to-date information.
