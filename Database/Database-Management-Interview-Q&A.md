@@ -1,15 +1,7 @@
 
 # 📚 Database Management Interview Q&A
 
-A detailed set of professional questions and answers based on my experience in database performance, integrity, backup/recovery, mentoring, and optimization strategies.
 
----
-
-## 📖 Table of Contents
-- [Question 1: Ensuring Database Performance and Integrity](#question-1-ensuring-database-performance-and-integrity)
-- [Question 2: Experience with Backup and Recovery Procedures](#question-2-experience-with-backup-and-recovery-procedures)
-- [Question 3: Mentoring Junior Team Members](#question-3-mentoring-junior-team-members)
-- [Question 4: Monitoring and Optimizing Database Performance](#question-4-monitoring-and-optimizing-database-performance)
 
 ---
 
