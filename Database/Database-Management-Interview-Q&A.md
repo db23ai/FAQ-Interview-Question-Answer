@@ -5,7 +5,7 @@
 
 ---
 
-## ❓ Question 1: How have you ensured the performance and integrity of databases in your previous roles?
+## Question 1: How have you ensured the performance and integrity of databases in your previous roles?
 
 **Answer:**
 
@@ -38,7 +38,7 @@ In my role as a **Technical Database Leader** at `{Company_Name}`, I focused on 
 
 ---
 
-## ❓ Question 2: Can you describe your experience with backup and recovery procedures?
+## Question 2: Can you describe your experience with backup and recovery procedures?
 
 **Answer:**
 
@@ -70,7 +70,7 @@ Throughout my career, I have built deep expertise in backup and recovery process
 
 ---
 
-## ❓ Question 3: How do you approach mentoring junior team members in database management?
+## Question 3: How do you approach mentoring junior team members in database management?
 
 **Answer:**
 
@@ -101,7 +101,7 @@ My mentoring approach is structured, supportive, and hands-on:
 
 ---
 
-## ❓ Question 4: What strategies do you employ to monitor and optimize database performance?
+## Question 4: What strategies do you employ to monitor and optimize database performance?
 
 **Answer:**
 
@@ -136,5 +136,4 @@ For effective database performance management, I follow a proactive and systemat
 
 ---
 
-# 📈 Let's Connect
-Feel free to reach out or connect with me for discussions on database architecture, tuning, automation, and cloud migrations!
+
