@@ -1,8 +1,5 @@
 
 ---
-layout: default
-title: Oracle RAC Interview Q&A
----
 
 # 🧠 Oracle RAC Interview Questions & Answers
 
@@ -96,19 +93,3 @@ Cache fusion ensures data consistency between RAC instances by transferring data
 
 ---
 
-## 🙋‍♂️ About Me
-
-I’m an OCP-certified Oracle DBA with 10+ years of experience in:
-
-- RAC, Data Guard, ASM, GoldenGate
-- Exadata, VLDB performance tuning
-- Backup & Recovery (RMAN), OEM
-- Shell scripting, PL/SQL
-- Financial & telecom enterprise systems
-
-🔗 [Visit my GitHub](https://github.com/db23ai)  
-📧 db23ai@example.com
-
----
-
-*This page is part of a professional portfolio and knowledge-sharing initiative for Oracle Database Engineers.*
