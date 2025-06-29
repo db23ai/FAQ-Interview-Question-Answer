@@ -1,11 +1,5 @@
 # 📘 Oracle Data Guard – Interview Questions & Answers
 
-A comprehensive list of Oracle Data Guard interview questions and answers, suitable for beginner to advanced level DBAs.
-
----
-
-## 🔹 Basic Level
-
 ### 1. What is Oracle Data Guard?
 
 Oracle Data Guard is a disaster recovery and high availability solution that maintains standby copies (physical or logical) of a production database. It ensures data integrity and enables failover if the primary database becomes unavailable.
