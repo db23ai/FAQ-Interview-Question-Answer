@@ -1,0 +1,1406 @@
+# 🧠 Oracle RAC DBA Interview Questions
+
+Reference : https://learnomate.org/oracle-rac-dba-interview-questions/
+
+## 📌 1. What is Oracle RAC?
+
+Oracle RAC (**Real Application Clusters**) is a database clustering solution that allows multiple instances to access a single database **simultaneously**, providing:
+- ✅ High Availability  
+- ✅ Scalability  
+- ✅ Load Balancing  
+
+---
+
+## 📌 2. What are the key benefits of using Oracle RAC?
+
+- 🔹 **High Availability**: Ensures database uptime during node failures.  
+- 🔹 **Scalability**: Easily add nodes to handle more load.  
+- 🔹 **Load Balancing**: Spreads user connections across nodes.  
+- 🔹 **Failover Support**: Automatically redirects workload when a node fails.  
+
+---
+
+## 📌 1. What are the key benefits of using Oracle RAC?
+High Availability: Ensures database availability in case of node failures.
+Scalability: Allows adding more nodes to handle increased workload.
+Load Balancing: Distributes user connections across multiple nodes for better performance.
+Failover Support: In case one node fails, the workload is transferred to another node.
+
+## 📌 1. What are the components of an Oracle RAC architecture?
+Cluster Nodes: Physical or virtual servers running Oracle RAC instances.
+Shared Storage: Storage that all RAC nodes access (e.g., ASM, SAN, NAS).
+Oracle Clusterware: Manages cluster resources and node communication.
+Private Interconnect: High-speed network for RAC instances to communicate.
+Voting Disk: Stores information about node membership in the cluster.
+OCR (Oracle Cluster Registry): Stores cluster configuration details.
+
+## 📌 1. What is Oracle Clusterware?
+Oracle Clusterware is Oracle’s cluster management software that coordinates RAC instances, provides high availability, and ensures communication between nodes.
+
+If I have a 8-node RAC, then how many scan listeners are required?​
+For an 8-node Real Application Clusters (RAC), you typically need three Scan Listeners.It is not mandatory for scan listener to run on all the nodes.
+
+## 📌 1. What is the role of SCAN (Single Client Access Name) in RAC?
+SCAN provides a single access point for client connections to the RAC database, simplifying connection management and load balancing.
+
+## 📌 1. What is the importance of a Private Interconnect in RAC?
+The private interconnect is used for internode communication, cache fusion, and data synchronization. A high-speed, low-latency network is required to prevent performance bottlenecks.
+
+## 📌 1. How SCAN knows which node has least load?​
+The SCAN (Single Client Access Name) does not inherently know the load on individual nodes. Load balancing is typically managed by the underlying clusterware or load balancing algorithms, which distribute client connections across the nodes in a balanced manner.
+
+## 📌 1. What is Cache Fusion in Oracle RAC?
+Cache Fusion is Oracle RAC’s mechanism to share data between instances via private interconnect, ensuring consistency across nodes without disk I/O.
+
+## 📌 1. What is the function of Voting Disk in Oracle RAC?
+The Voting Disk helps in cluster membership decisions, ensuring that only the healthy nodes remain in the cluster and avoiding split-brain scenarios.
+
+## 📌 1. Do you know another Cluster Vendor?
+HP Tru64 Unix, Veritas, Microsoft
+
+## 📌 1. Explain how client connection is established in RAC database ?
+LREG process on each instances registers the database service of the node with default local listener and scan listener. The listeners store the workload information of each node.
+
+So when client tries to connect using scan_name and port,
+
+1.scan_name will be resolved through DNS , which will redirect to 1st scan ip ( out of 3).
+2.The client will connected to the respective scan listener.
+3.The scan listener compares the work load of both the instances and if scan determines that node1 has least                   load , then scan listener send the vip
+4.address  and port details of that particular nodes local listener to client.Address  and port details of that                          particular nodes local listener to client.
+5.Now client connects to that local listeners and a dedicated server process is created.
+6.Client connection becomes successful and it starts accessing the database.
+
+## 📌 1. What current block and CR block and PI in RAC?
+In Oracle RAC (Real Application Clusters), these terms refer to cache fusion mechanisms:
+
+Current Block: The most recent copy of a data block, which can be modified by an instance.
+CR (Consistent Read) Block: A past version of a data block used for read consistency, typically reconstructed using undo.
+PI (Past Image) Block: A block retained in an instance’s buffer cache before transferring a modified version to another instance to ensure data consistency.
+What happens if a node fails in an Oracle RAC environment?
+The failed node is evicted from the cluster.
+Oracle Clusterware redistributes connections to other available nodes.
+Instance recovery is performed by the surviving nodes.
+
+## 📌 1. What is the difference between normal views and RAC views?
+A RAC view has the prefix ‘G’. For example, GV$SESSION instead of V$SESSION
+
+## 📌 1. How is possible to install a RAC if we don’t have a CFS?
+This is possible by using a raw device.
+
+## 📌 1. How many instances can one rack database have?
+One rack database can have up to 100 instance.
+
+## 📌 1. Is there an easy way to verify the inventory for all remote nodes
+You can run the OPATCH LSINVENTORY -ALL_NODES command from a single node to look at the inventory details for all nodes in the cluster.
+
+## 📌 1. How many nodes are supported in a RAC Database?
+Oracle RAC 10g Release 2 onwards, support 100 nodes in a cluster using Oracle Clusterware, and 100 instances in a RAC database.
+
+## 📌 1. What is FAN?
+FAN (Fast Application Notification) is an Oracle feature that provides real-time notifications about database events, such as node failures or service status changes, to enable faster failover and load balancing.
+
+## 📌 1. What is FCF?
+FCF (Fast Connection Failover) is an Oracle feature that enables applications to quickly detect and recover from database failures by leveraging FAN (Fast Application Notification) events.
+
+## 📌 1. What would be the possible performance impact in a cluster if a less powerful node (e.g. slower CPU’s) is added to the cluster?
+All processing will show down to the CPU speed of the slowest server.
+
+## 📌 1. What methods are available to keep the time synchronized on all nodes in the cluster?
+Either the Network Time Protocol(NTP) can be configured or in 11gr2, Cluster Time Synchronization Service (CTSS) can be used.
+
+## 📌 1. What is a raw device?
+A raw device is a disk drive that does not yet have a file system set up. Raw devices are used for Real Application Clusters since they enable the sharing of disks.
+
+## 📌 1. How does Load Balancing work in Oracle RAC?
+Oracle RAC provides two types of load balancing:
+Client-side Load Balancing: Clients distribute connections across nodes based on SCAN.
+Server-side Load Balancing: The database directs connections based on workload and performance metrics.
+
+## 📌 1. How will you upgrade RAC database?
+To upgrade a RAC (Real Application Clusters) database, follow these key steps: First, take a full backup of the database to ensure recovery options. Then, check for any deprecated features and compatibility issues. Next, upgrade the Grid Infrastructure to the target version before upgrading the database. After that, use the Database Upgrade Assistant (DBUA) or a manual method (such as RMAN restore or Data Pump) to perform the upgrade. Apply necessary patches using OPatch and verify the cluster status. Finally, test the upgraded database, perform post-upgrade tasks like recompiling invalid objects, and optimize performance.
+
+## 📌 1. What are rolling patches and how to apply in RAC?
+Rolling patches in RAC (Real Application Clusters) allow patching one node at a time while keeping the database available, minimizing downtime. To apply a rolling patch, first, download the patch and ensure prerequisites are met. Then, use opatchauto or opatch to apply the patch on one node while other nodes continue running. After patching the first node, restart and verify it before proceeding to the next node sequentially. Once all nodes are patched, perform post-patch validation and testing to ensure database stability.
+
+## 📌 1. How to add/remove a node?
+Use addNode.sh to add a node and rootcrs.sh -deconfig -force to remove a node in RAC.
+
+## 📌 1. What are node apps?
+Node apps in RAC are cluster services like VIP, listener, and ONS, managed by Grid Infrastructure for high availability.
+
+## 📌 1. What is gsd (Global Service Daemon)?
+GSD (Global Service Daemon) is a background process in Oracle RAC that manages services for Oracle 9i OPS, handling administrative tasks like startup, shutdown, and monitoring.
+
+## 📌 1. What are the uses of services? How to find out the services in cluster?
+Services in RAC enable workload management, load balancing, and high availability by directing client connections to specific instances. To find services in a cluster, use the command:
+
+SELECT name FROM gv$services;
+or
+
+srvctl status service -d <db_name>
+
+## 📌 1. How to find out the nodes in cluster (or) how to find out the master node?
+Use olsnodes -n to list cluster nodes and crsctl query css master to find the master node in RAC.
+
+## 📌 1. How to know the public IPs, private IPs, VIPs in RAC?
+To find public, private, and VIPs in RAC, use the following commands:
+
+Public & Private IPs: Check /etc/hosts or use ifconfig -a / ip a.
+VIPs: Run srvctl config nodeapps or check with olsnodes -i.
+What utility is used to start DB/instance?
+Use srvctl start database -d <db_name> to start the database or srvctl start instance -d <db_name> -i <instance_name> to start an instance in RAC.
+
+## 📌 1. What is CSS miscount?
+CSS miscount in Oracle RAC is the timeout threshold that determines how long a node waits before considering another node unreachable due to missed heartbeats. If the node fails to respond within the miscount value (default is 30 seconds), it gets evicted to maintain cluster stability. Proper tuning of miscount helps prevent unnecessary evictions.
+
+## 📌 1. How to change the CSS miscount default value?
+To change the CSS miscount value in Oracle RAC, use the following command as root:
+
+crsctl set css miscount <new_value>
+Verify the change using:
+
+crsctl get css miscount
+A cluster restart may be required for the change to take effect.
+
+How to start and stop CRS?
+Use crsctl start crs to start and crsctl stop crs to stop Cluster Ready Services (CRS) in Oracle RAC.
+
+How to move regular DB to an ASM disk group?
+Use RMAN backup/restore or Oracle Data Pump to migrate a regular database to an ASM disk group.
+
+What is a NIC card and HBA card?
+A NIC (Network Interface Card) enables network communication, while an HBA (Host Bus Adapter) card connects servers to storage devices like SAN for high-speed data transfer.
+
+What is a TPS?
+TPS (Transactions Per Second) is a metric that measures the number of transactions a system processes in one second, indicating database or application performance.
+
+What is the use of crs_getperm command?
+The crs_getperm command in Oracle RAC is used to view permissions and ownership details of cluster resources.
+
+What is the use of crs_profile?
+The crs_profile command in Oracle RAC is used to create, modify, or manage cluster resource profiles.
+
+Where will you check for RAC log files?
+RAC log files are located in $GRID_HOME/log/<hostname>/, $ORACLE_BASE/diag/crs/<hostname>/crs/trace/, and /var/log/messages for system-related logs.
+
+What is OCFS?
+OCFS (Oracle Cluster File System) is a shared file system designed for Oracle RAC to store database files on clustered storage with high availability.
+What is Oracle Cluster Ware?
+Oracle Clusterware is a software component that manages cluster resources, node membership, and high availability in an Oracle RAC environment.
+
+What is a resource?
+A resource in Oracle Clusterware is any managed entity, such as a database, instance, listener, or service, that ensures high availability in a RAC environment.
+
+How to register a resource?
+Use crsctl add resource <resource_name> -type <resource_type> -attr "<attributes>" to register a resource in Oracle Clusterware.
+
+What does crs_start / crs_stop does?
+crs_start starts a specific Oracle Clusterware resource, while crs_stop stops it, ensuring controlled management of cluster components.
+
+What is the difference between Oracle Cluster ware and CRS?
+Oracle Clusterware is a complete cluster management solution that handles node membership, high availability, and resource management in an Oracle RAC environment. CRS (Cluster Ready Services) is a component of Oracle Clusterware responsible for managing cluster resources, such as database instances, listeners, and services.
+
+What is Oracle recommendation for interconnect?
+Oracle recommends using a dedicated, high-speed, low-latency private network (preferably Gigabit Ethernet or InfiniBand) for the RAC interconnect.
+
+List the commands used to manage RAC?
+Here are some essential commands for managing Oracle RAC:
+Cluster & Node Management
+crsctl start|stop crs – Start/stop Clusterware
+olsnodes -n – List cluster nodes
+crsctl query css master – Check master node
+Database & Instance Management
+srvctl start|stop database -d <db_name> – Start/stop database
+srvctl start|stop instance -d <db_name> -i <instance_name> – Start/stop instance
+srvctl status database -d <db_name> – Check database status
+Resource Management
+crsctl status resource -t – List cluster resources
+crsctl add|modify|delete resource – Manage resources
+crsctl start|stop resource <resource_name> – Start/stop a resource
+Services & Networking
+srvctl config service -d <db_name> – Show configured services
+srvctl status nodeapps – Check VIP, listener, ONS status
+These commands help in monitoring and managing Oracle RAC efficiently.
+
+What are the log file locations for RAC?
+RAC log files are located in $GRID_HOME/log/<hostname>/, $ORACLE_BASE/diag/crs/<hostname>/crs/trace/, and /var/log/messages for system logs.
+
+How to restore OCR file if corrupted?
+Use ocrconfig -restore <backup_file> as root to restore a corrupted OCR file from a backup.
+
+How to compare all nodes with cluvfy?
+Use cluvfy comp peer -n all -verbose to compare all RAC nodes.
+
+How to manage ASM in RAC?
+Use srvctl and asmcmd commands to manage ASM in RAC, such as srvctl start asm -n <node_name> and asmcmd lsdg to list disk groups.
+
+Where are the Cluster ware files stored on a RAC environment?
+Clusterware files in RAC are stored in the OCR (Oracle Cluster Registry) and Voting Disks, typically located on shared storage (ASM or raw devices).
+
+Where are the database software files stored on a RAC environment?
+Database software files in RAC are stored in $ORACLE_HOME on each node, while database files reside in ASM or shared storage.
+
+What kind of storage we can use for the shared Cluster ware files?
+For shared Clusterware files (OCR and Voting Disks) in RAC, Oracle supports ASM (Automatic Storage Management), NFS (Network File System), and Cluster File Systems (like OCFS2 or third-party solutions). ASM is the most recommended option for high availability and performance.
+
+What kind of storage we can use for the RAC database storage?
+For RAC database storage, Oracle supports ASM (Automatic Storage Management), Cluster File Systems (like OCFS2 or ACFS), and NFS (Network File System). ASM is the preferred choice for high performance, redundancy, and easier management of database files.
+
+Which files can be placed on an Oracle Cluster File System?
+Oracle Cluster File System (OCFS) can store database files, redo logs, control files, OCR, Voting Disks, and shared executables in a RAC environment.
+
+Do you know another Cluster Vendor?
+Yes, other cluster vendors include Red Hat Cluster Suite (RHCS), Veritas Cluster Server (VCS), and Microsoft Failover Cluster.
+
+When to use CFS over raw?
+Use CFS (Cluster File System) over raw devices when you need better manageability, file system flexibility, and support for standard OS commands in a RAC environment.
+
+When to use raw over CFS?
+Use raw devices over CFS when you need minimal I/O overhead, lower latency, and better performance for high-throughput workloads in Oracle RAC. However, raw devices are harder to manage and are deprecated in newer Oracle versions.
+
+What CRS is?
+CRS (Cluster Ready Services) is a component of Oracle Clusterware that manages cluster resources, high availability, and node membership in Oracle RAC.
+
+Are there any issues for interconnect when sharing the same switch as the public network by using VLAN to
+separate the network?
+Yes, sharing the same switch for interconnect and public network, even with VLANs, can cause latency, congestion, and packet loss, impacting RAC performance.
+
+What versions of the database can I use the cluster verification utility (cluvfy) with?
+The Cluster Verification Utility (CLUVFY) is available for Oracle 10g and later, including 11g, 12c, 18c, 19c, and 21c.
+
+If I am using Vendor Clusterware such as Veritas, IBM, Sun or HP, do I still need Oracle Clusterware to run
+Oracle RAC 10g?
+Yes, Oracle RAC 10g requires Oracle Clusterware, even if using vendor clusterware, as it manages RAC-specific resources and database high availability.
+
+Is RAC on VM Ware supported?
+Yes, Oracle RAC is supported on VMware, but Oracle recommends using Oracle VM or bare metal for optimal performance and support compliance.
+
+What is hangcheck timer used for?
+The hangcheck timer monitors system hangs and automatically reboots a node if it becomes unresponsive, preventing cluster instability in Oracle RAC.
+
+Is the hangcheck timer still needed with Oracle RAC 10g?
+No, the hangcheck timer is not required in Oracle RAC 10g and later, as Oracle Clusterware handles node fencing and failure detection.
+
+What files can I put on Linux OCFS2?
+Linux OCFS2 supports storing database files, control files, redo logs, OCR, Voting Disks, binaries, and application files in a RAC environment.
+
+Is it possible to use ASM for the OCR and voting disk?
+Yes, starting from Oracle 11g Release 2, ASM can be used to store OCR and Voting Disk for improved manageability and high availability.
+
+Can I change the name of my cluster after I have created it when I am using Oracle Clusterware?
+No, you cannot change the cluster name after creation when using Oracle Clusterware; you must reinstall the cluster to use a different name.
+
+What the O2CB is?
+O2CB is the cluster stack for OCFS2, managing heartbeat, node membership, and file system locking in a clustered environment.
+
+What is the recommended method to make backups of a RAC environment?
+The recommended method for RAC backups is using RMAN (Recovery Manager) with ASM and FRA (Fast Recovery Area) for efficient and consistent backups.
+
+What command would you use to check the availability of the RAC system?
+Use crsctl check crs to check the availability of the RAC system.
+
+What is the minimum number of instances you need to have in order to create a RAC?
+The minimum number of instances required to create a RAC database is two.
+
+Name two specific RAC background processes
+Two specific RAC background processes are LMS (Global Cache Service Process) and LMD (Global Enqueue Service Daemon).
+
+Can you have many database versions in the same RAC?
+Yes, you can run multiple database versions in the same RAC by using different Oracle Homes, but they must be compatible with the Clusterware version.
+
+What was RAC previous name before it was called RAC?
+Before being called RAC (Real Application Clusters), it was known as Oracle Parallel Server (OPS).
+
+What RAC component is used for communication between instances?
+The Global Cache Service (GCS) and Global Enqueue Service (GES) facilitate communication between instances in RAC using the private interconnect.
+
+What is the difference between normal views and RAC views?
+Normal views show data for a single-instance database, while RAC views (GV$ views) provide cluster-wide information across all instances using the INST_ID column.
+
+Which command will we use to manage (stop, start) RAC services in command-line mode?
+Use the srvctl command to manage RAC services, such as:
+
+Start service: srvctl start service -d <db_name> -s <service_name>
+Stop service: srvctl stop service -d <db_name> -s <service_name>
+How many alert logs exist in a RAC environment?
+In a RAC environment, each database instance has its own alert log located in $ORACLE_BASE/diag/rdbms/<db_name>/<instance_name>/trace/alert_<instance_name>.log. Additionally, Clusterware components like CRS and ASM also have their own alert logs.
+
+How do you know you lost the voting disk?
+You can check for a lost voting disk using the command:
+
+crsctl query css votedisk
+If a voting disk is missing or inaccessible, RAC nodes may experience node evictions or cluster instability, which can be found in CRS logs ($GRID_HOME/log/<hostname>/crsd/crsd.log).
+
+What format is the OCR file?
+The OCR (Oracle Cluster Registry) file is stored in a binary format.
+
+What will happen if we lost the voting disk?
+If the voting disk is lost, RAC nodes may evict, reboot, or the entire cluster may fail, leading to service disruptions.
+
+What is the network protocol you used in configuring RAC?
+The primary network protocol used in configuring RAC is TCP/IP for interconnect and client communication.
+
+How you check the health of Your RAC Database?
+You can check the health of your RAC database using:
+
+srvctl status database -d <db_name> – Check database and instance status
+crsctl check crs – Verify Clusterware status
+olsnodes -n – List active nodes
+gv$instance and gv$session views – Monitor instance and session activity
+adrci tool – Check alert logs for errors
+If there is some issue with virtual IP how will you troubleshoot it? How will you change virtual ip?
+Troubleshoot VIP issues using srvctl status vip, ifconfig, and CRS logs; change VIP with srvctl modify vip -n <node> -A <new_vip_ip>/Subnet.
+
+What kind of backup strategy you follow for your Databases?
+I follow an RMAN backup strategy with daily incremental, weekly full backups, and archive log backups, stored in ASM or FRA for high availability.
+
+What will you backup in your RAC Database?
+I backup database files, control files, SPFILE, archived redo logs, and ASM metadata using RMAN in a RAC environment.
+
+How to recover your RAC Database?
+Recover a RAC database using RMAN with RESTORE and RECOVER commands, followed by ALTER DATABASE OPEN RESETLOGS.
+
+What kind of backup strategy you are following for application server?
+I follow a file system backup strategy for the application server, using OS-level backups, configuration file backups, and scheduled full/incremental backups.
+
+How your Add node to your RAC Database?
+Add a node to RAC using addNode.sh for Grid Infrastructure and dbca -addInstance for the database instance.
+
+For a Database created with ASM on RAC How you would add one more ASM configuration?
+Add a new ASM instance using srvctl add asm -n <node_name>, then configure new disk groups with asmca or asmcmd.
+
+How you add node for a RAC cluster? Step by step?
+Add a node to a RAC cluster using these steps: Run addNode.sh for Grid, install Oracle binaries, run dbca -addInstance, and update srvctl configuration.
+
+Which CRS process starts first?
+The cssd (Cluster Synchronization Services Daemon) starts first in Oracle CRS to manage cluster membership.
+
+What are the ways to configure TAF and Load Balancing?
+TAF (Transparent Application Failover) and Load Balancing are configured using Service Attributes (srvctl), TNSNAMES.ORA, and Server-side Load Balancing via Listener.
+
+When to use -repair parameter of ocrconfig command?
+Use the -repair parameter of the ocrconfig command to fix OCR corruption or restore a missing OCR file in Oracle Clusterware.
+
+What is crs_stat? What is the meaning of TARGET and STATUS column in crs_stat command output?
+The crs_stat command (deprecated in 12c) was used to check the status of cluster resources in Oracle RAC.
+
+TARGET: The desired state of the resource (ONLINE or OFFLINE).
+STATUS: The current state of the resource (ONLINE, OFFLINE, or INTERMEDIATE).
+For newer versions, use crsctl status resource -t.
+
+What is service? How to use services to gain maximum use of RAC?
+A service in RAC is a logical database connection that enables workload management and load balancing. To maximize RAC usage, configure services with TAF, connection load balancing, and preferred/available instances using srvctl add service.
+
+What is STONIH algorithm?
+The STONITH (Shoot The Other Node In The Head) algorithm is a fencing mechanism used to forcibly reboot or isolate a failed node in a cluster to prevent data corruption.
+
+How can you shutdown single instance in the cluster environment?
+Use srvctl stop instance -d <db_name> -i <instance_name> to shut down a single instance in the cluster.
+
+What is fencing?
+Fencing in RAC isolates and prevents a failed or unresponsive node from accessing shared resources to maintain cluster integrity.
+
+Why Cluster ware installed in root (why not oracle)?
+Clusterware is installed as root because it manages critical cluster resources, including node membership, networking, and storage, which require root-level privileges. Oracle user lacks the necessary permissions to control system-wide cluster services and low-level hardware interactions.
+
+What is the difference between cr block and cur (current) block?
+A CR (Consistent Read) block is a past version of a data block used for read consistency, fetched when a session needs an older image due to uncommitted changes. A Current block is the latest version of the block, typically used for DML operations, ensuring the most up-to-date data.
+
+Why Node Eviction happens on Oracle RAC?
+Node eviction in Oracle RAC occurs when a node becomes unresponsive, loses cluster communication, or violates voting disk rules. This prevents data corruption and ensures cluster stability by removing the faulty node to maintain overall integrity. Logs in /var/log/messages and crsctl commands help diagnose the issue.
+
+What are the initialization parameters that must have same value for every instance in an Oracle RAC
+database?
+In Oracle RAC, some initialization parameters must have the same value across all instances for consistency. Key parameters include:
+
+CLUSTER_DATABASE – Must be TRUE for RAC.
+CONTROL_FILES – All instances must point to the same control files.
+UNDO_MANAGEMENT – Should be AUTO for automatic undo management.
+INSTANCE_TYPE – Must be RDBMS for all instances.
+These ensure proper cluster synchronization and database operations.
+
+What is Miscount (MC) in Oracle RAC?
+Miscount (MC) in Oracle RAC is the timeout setting that determines how long a node waits before declaring another node unreachable due to missed heartbeats.
+
+What is the use of CSS Heartbeat Mechanism in Oracle RAC?
+The CSS (Cluster Synchronization Services) Heartbeat Mechanism in Oracle RAC ensures node connectivity by continuously exchanging heartbeat signals via the private interconnect and voting disks. If a node fails to send heartbeats within the miscount threshold, it is evicted to prevent data corruption and maintain cluster stability.
+
+What happens if latencies to voting disks are longer?
+If latencies to voting disks are high, nodes may miss heartbeats, leading to possible node eviction or even cluster instability. This can cause performance degradation, increased wait events, or split-brain scenarios. Monitoring latency metrics and optimizing network/storage performance helps prevent such issues.
+
+What is TAF and TAF policies?
+TAF (Transparent Application Failover) is an Oracle feature that enables automatic failover of database connections in case of a failure, allowing queries to continue running on a surviving node without user intervention.
+
+TAF Policies define how failover occurs and include:
+
+SESSION: Reconnects the session but requires re-execution of queries.
+SELECT: Fails over active queries and resumes fetching rows from the last committed state.
+What is HAS (High Availability Service) and the commands?
+HAS includes ASM & database instances and listeners.
+crsctl check has
+crsctl config has
+crsctl disable has
+crsctl enable has
+crsctl query has releaseversion
+crsctl query has softwareversion
+crsctl start has
+crsctl stop has [-f]
+
+What is a raw partition?
+A raw partition is a portion of a physical disk that is accessed at the lowest possible level. A raw partition is created when an extended partition is created and logical partitions are assigned to it without any formatting. Once formatting is complete, it is called cooked partition.
+
+What is Transparent Application Failover (TAF) in Oracle RAC?
+TAF enables a client session to automatically reconnect to another node in case of a failure, ensuring minimal disruption.
+
+Which command will we use to manage (stop, start) RAC services in command-line mode?
+srvctl
+
+What are the characteristics controlled by Oracle services feature?
+The charateristics include a unique name, workload balancing and failover options,and high availability characteristics.
+
+What is VIP IP used for?
+It returns a dead connection IMMIDIATELY, when its primary node fails. Without using VIP IP, the clients have to wait around 10 minutes to receive ORA-3113: “end of file on communications channel”. However, using Transparent Application Failover (TAF) could avoid ORA-3113.
+
+What is the difference between Oracle RAC and distributed data?
+There is no difference between RAC and distributed data, as RAC is a clustered environment.
+
+What is the default memory allocation for ASM?
+In 10g the default SGA size is 1G in 11g it is set to 256M and in 12c ASM it is set back to 1G.
+
+How many alert logs exist in a RAC environment?
+A- One for each instance.
+
+Why we need to have configured SSH or RSH on the RAC nodes?
+SSH (Secure Shell,10g+) or RSH (Remote Shell, 9i+) allows “oracle” UNIX account connecting to another RAC node and copy/ run commands as the local “oracle” UNIX account.
+
+What is GPNP profile?
+Grid plug and play(GPNP) file is small xml file present at os local file system . Each node have their owner GPNP file.
+GPNP file is managed by GPNP daemon.
+It stores information like asm diskstring , asm spfile which are required to start the cluster.
+
+What components of the Grid should I back up?
+The backups should include OLR, OCR and ASM Metadata.
+
+How do you backup ASM Metadata?
+You can use md_backup to restore the ASM diskgroup configuration in-case of ASM diskgroup storage loss.
+
+Mention what are the tools provided in Oracle Enterprise Manager?
+Tools provided in Oracle Enterprise Manager are,
+Grid Control-
+
+It is used to deliver the centralized management system and provides configuration and administration capabilities.
+It provides the cost reduction plans and provides higher efficiency
+Database Control-
+
+It is used as a graphical management tool to manage the database to make it configure automatically.
+It is related to the Oracle Clusterware. It is used to maintain the services of the Oracle RAC.
+It also manages the server pools that are being created with the Oracle Clusterware and provision to manage it from a single place.
+Mention how can you determine what protocol is being used for Interconnect traffic?
+To determine what protocol is being used for Interconnect traffic you can look at the database alert log for the time period when the database was started up.
+
+ 
+
+ Is the SSH, RSH needed for normal RAC operations?
+No. SSH or RSH are needed only for RAC, patch set installation and clustered database creation.
+
+What are the software stacks in oracle clusterware?
+From 11g onward, there are two stacks for clusterware is CRS.
+
+lower stack is high availability cluster service stack ( managed by ohasd daemon)
+upper stack is CRSD stack ( managed by CRSd daemon)
+What if your OCR (Oracle Cluster Registry) is corrupted?
+if your OCR is corrupted, you can either use the logical or physical OCR backup copy to restore the repository.
+
+What are some RAC specific parameters ?
+Undo Management
+undo_tablespaces – Defines the UNDO tablespace for each RAC instance.
+Cluster Configuration
+cluster_database – Enables Oracle RAC functionality.
+cluster_database_instances – Specifies the number of instances in the RAC cluster.
+Interconnect & Communication
+cluster_interconnects – Defines the private network for RAC interconnect traffic.
+remote_listener – Specifies the SCAN listener for dynamic service registration.
+Instance & Redo Management
+thread – Assigns a redo log thread to each instance.
+Where does the Clusterware write when there is a network or Storage missed heartbeat?
+The network ping failure is written in $CRS_HOME/log
+
+What methods are available to keep the time synchronized on all nodes in the cluster?
+Either the Network Time Protocol(NTP) can be configured or in 11gr2, Cluster Time Synchronization Service (CTSS) can be used.
+
+What is the default memory allocation for ASM?
+In 10g the default SGA size is 1G in 11g it is set to 256M and in 12c ASM it is set back to 1G.
+
+What is a Service in Oracle RAC?
+A service in Oracle RAC is a logical database connection point that allows workload management and high availability for applications.
+
+How do we know which database instances are part of a RAC cluster?
+You can query the V$ACTIVE_INSTANCES view to determine the member instances of the RAC cluster.
+
+How do you find out what object has its blocks being shipped across the instance the most?
+You can use the dba_hist_seg_stats.
+
+What files components in RAC must reside on shared storage?
+Spfiles, ControlFiles, Datafiles and Redolog files should be created on shared storage.
+
+Mention in RAC what files should be created on shared storage?
+In RAC ControlFiles, Spfiles, Redolog files, and Datafiles should be created on shared storage.
+
+What are the restrictions on the SID with a RAC database? Is it limited to 5 characters?
+The SID prefix in 10g Release 1 and prior versions was restricted to five characters by install/ config tools so that an ORACLE_SID of up to max of 5+3=8 characters can be supported in a RAC environment. The SID prefix is relaxed up to 8 characters in 10g Release 2, see bug 4024251 for more information.
+
+Do we have to have Oracle RDBMS on all nodes?
+Each node of a cluster that is being used for a clustered database will typically have the RDBMS and RAC software loaded on it, but not actual data files (these need to be available via shared disk).
+
+What is Dynamic Resource Manager (DRM) in Oracle RAC?
+DRM dynamically moves resources such as buffer cache between instances to optimize performance based on workload.
+
+Mention where does the Clusterware write when there is a network or storage issue?
+When there is a network or storage issue the network ping failure is written in $CRS_HOME/log
+
+What is nodeapps?
+Nodeapps are standard set of oracle application services which are started automatically for RAC.
+Node apps Include: vip,network,adminhelper,ONS
+
+Does Real Application Clusters support heterogeneous platforms?
+The Real Application Clusters do not support heterogeneous platforms in the same cluster.
+
+What is this recovery buddy feature in oracle 19c?
+The Recovery Buddy feature in Oracle 19c improves Data Guard recovery performance by distributing redo apply workload across multiple instances in an Active Data Guard environment. It allows one instance (the apply instance) to offload redo block fetching and apply processing to another instance (the recovery buddy) in an Oracle RAC standby database. This reduces contention on the apply instance and improves redo apply efficiency, especially in multi-instance standby configurations.
+
+What will happen if I kill the database archiver process in oracle rac node?
+It will be restarted.
+
+What is application continuity  and transactional dataguard in oracle rac?
+Application Continuity (AC) in Oracle RAC ensures that transactions are automatically retried and masked from users in case of planned or unplanned failures. It replays in-flight transactions after a failure, ensuring session persistence without user disruption.
+
+Transactional Data Guard (TDG) allows a standby database to process read-only queries and transactions while continuously applying redo from the primary database. This enables real-time reporting and offloads workload from the primary database while maintaining high availability.
+
+What is the concept of a cluster in the context of Oracle R A C?
+A cluster refers to a group of interconnected nodes acting as a single system, and it is essential for applications that want to be highly available and are deployed in clusters, even in cloud environments.
+
+What is a Voting Disk in Oracle RAC?
+A voting disk is a shared disk used to determine which nodes in the cluster are active and to prevent split-brain scenarios.
+
+What is the purpose of the Oracle RAC Database Rolling Patch and Rolling Patch Plan features?
+The Oracle RAC Database Rolling Patch and Rolling Patch Plan features allow applying patches to RAC nodes one at a time without shutting down the entire database. This ensures high availability and minimal downtime, as the patched instance is restarted while others continue serving users. By rolling patches across nodes, Oracle RAC enables continuous operations, reduced maintenance impact, and seamless upgrades in mission-critical environments.
+
+What is an OCR (Oracle Cluster Registry)?
+OCR is a repository that stores cluster configuration details, including node membership, voting disk information, and resource profiles.
+
+What is the use of RACcheck utility?
+The RACcheck utility is used to perform a health check of Oracle RAC environments, identifying configuration issues and best practice deviations.
+
+What are the Clusterware components?
+Voting Disk or Voting file – Oracle RAC uses the voting disk/file to manage cluster membership by way of a health check and arbitrates cluster ownership among the instances in case of network failures. The voting disk must reside on shared disk.Oracle Cluster Registry (OCR) – Maintains cluster configuration information as well as configuration information about any cluster database within the cluster. The OCR must reside on shared disk that is accessible by all of the nodes in the cluster. The daemon OCSSd manages the configuration info in OCR and maintains the changes to the cluster in the registry.
+Virtual IP (VIP) – When a node fails, the VIP associated with it is automatically failed over to some other node and new node re-arps the world indicating a new MAC address for the IP. Subsequent packets sent to the VIP go to the new node, which will send error RST packets back to the clients. This results in the clients getting errors immediately.
+crsd – Cluster Resource Services Daemon
+cssd – Cluster Synchronization Services Daemon
+evmd – Event Manager Daemon
+
+Why is Oracle RAC crucial for highly available environments?
+Oracle RAC is crucial for highly available environments, especially for those working on databases or upgrading to     R A C.
+
+Why RAC has separate redo thread for each node?
+In RAC, each instance have their own lgwr process , So there has to be separate online redolog for each instance ( called as thread), So that lgwr will write to the respective redo log.
+
+What were the new features in 11g (R2) Oracle RAC?
+Grid & ASM are on one home,
+Voting disk & ocrfile can be on the ASM,
+SCAN,
+By using srvctl, we can mange diskgroups, home, ons, eons, filesystem, srvpool, server, scan, scan_listener, gns, vip, oc4j
+GSD
+
+What is a Private Interconnect in Oracle RAC?
+A private interconnect is a dedicated, high-speed network used for communication between RAC instances.
+
+What is the use of RACcheck utility?
+The RACcheck utility is used to perform a comprehensive health check of Oracle RAC environments, identifying configuration issues and best practice deviations.
+
+What are the special background processes for RAC (or) what is the difference between stand-alone database & RAC database background processes?
+DIAG, LCKn, LMD, LMSn, LMON
+
+What are the three types of IP addresses in the RAC environment?
+The three types of IP addresses are public, private, virtual, SCN, and SCN.
+
+In a rac system , What will happen if i kill the pmon process?
+The pmon will be restarted automatically.
+
+What is the difference between locks, latches, enqueues and semaphores in Oracle?
+Locks: Control concurrent access to database resources.
+Latches: Lightweight, fast memory structures preventing simultaneous access.
+Enqueues: Queued locks that provide ordered access with wait queues.
+Semaphores: OS-level synchronization primitives managing process access to resources.
+Explain the role of the Fast Application Notification (FAN) in Oracle RAC.
+Fast Application Notification (FAN) in Oracle RAC improves high availability by notifying applications of node failures, service status changes, or load balancing events in real time. This allows clients to quickly reroute connections, minimizing downtime and enhancing performance, fault tolerance, and user experience in a RAC environment.
+
+What is SCAN (Single Client Access Name) in Oracle RAC?
+SCAN provides a single access point for database connections in RAC. It simplifies connection management and supports automatic failover and load balancing.
+
+What is ACMS?
+ACMS stands for Atomic Controlfile to Memory Service. It synchronizes the control file updates across Oracle Real Application Clusters (RAC) instances, ensuring consistency and high availability of database metadata.
+
+What files components in RAC must reside on shared storage?
+In Oracle RAC, OCR, Voting Disks, ASM Disks, Datafiles, Control Files, and Redo Logs must reside on shared storage for cluster-wide accessibility.
+
+What are Oracle Clusterware/Daemon processes and what do they do?
+ohasd, orarootagent, oragent, ocssd, crsd, ctsd, evmd
+
+Why we need voting disk?
+A Voting Disk maintains cluster integrity by tracking node membership and preventing split-brain scenarios in Oracle RAC.
+
+Why is the interconnect used for?
+The interconnect in Oracle RAC is used for cache fusion to transfer data blocks between instances and synchronize global cache and lock management.
+
+What are the key benefits of using Oracle Rack for high availability and scalability?
+Oracle Rack allows for increased user connections, efficient database management, and improved performance, as well as the ability to add additional nodes for increased capacity without requiring any application changes.
+
+ What is the difference is between relocating the SCAN using srvctl relocate scan and SCAN_LISTENER by using srvctl relocate scan_listener command?
+srvctl relocate scan moves the SCAN VIP to another node, while srvctl relocate scan_listener moves the SCAN Listener to a different SCAN VIP for load balancing.
+
+What is OCR and what it contains?
+The Oracle Cluster Registry (OCR) is a critical component of Oracle Clusterware that stores cluster configuration information, including node membership, resources, voting disk locations, and database services. It ensures cluster coordination and high availability by managing cluster-related metadata.
+
+What are the types of services in Oracle RAC?
+Database Service: Logical representation of a workload to distribute connections.
+VIP (Virtual IP) Service: Provides failover support for client connections.
+
+Why do we need user equivalency? What happens if we remove it between nodes 3,5 in a production of 6 node RAC cluster?
+User equivalency (passwordless SSH) is required in Oracle RAC for inter-node communication, cluster management, and automated processes like rolling patches. If removed between nodes 3 and 5 in a 6-node RAC, cluster operations like node addition, patching, and startup scripts may fail, causing communication and synchronization issues.
+
+If the voting disk/OCR file got corrupted and doesn’t have backups, how to get them?
+Recreate the voting disk/OCR in Oracle RAC using ocrconfig -restore or crsctl replace votedisk if no backup is available.
+
+How do you identify the OCR file location?
+Identify the OCR file location in Oracle RAC using the command:
+
+ocrcheck
+This displays the OCR storage locations and their accessibility status.
+
+ I want to run a parallel query in rac database, But I need to make sure that, the parallel slave processes will run only on node where i am running the query and it will not move to other node.
+We can set Parallel_force_local parameter to TRUE at session level and then run the parallel query. All the px processes will run only on that node.
+
+ How is the Cluster Health Monitor is different from OSWatcher?
+Cluster Health Monitor (CHM) provides real-time monitoring of cluster resources, while OSWatcher collects OS-level performance metrics for troubleshooting and historical analysis.
+
+How do I identify the voting disk location?
+Identify the voting disk location in Oracle RAC using the command:
+
+crsctl query css votedisk
+In a 12c two node RAC, What will happen, if I unplug the network cable for private interconnect?
+Rebootless node fencing will happen. i.e the node which is going to be evicted, on that node all cluster services will be down. and the services will be moved to the surviving node. And crs will do the restart attempt continuously until the private interconnect issues fixed.  Please note – the node will not be reboot, only the cluster services willl go down.
+
+However Prior to 11.2 , In this situation, the node reboot will occur.
+
+How to check backup (location) of OCR files?
+Check the OCR backup location in Oracle RAC using the command:
+
+ocrconfig -showbackup
+How to take backup of voting files?
+Take a backup of voting files in Oracle RAC using the command:
+
+dd if=<voting_disk_path> of=<backup_path> bs=4k
+How does Oracle RAC handle contention for resources among instances, and what is the role of Global Enqueues?
+Oracle RAC manages resource contention using Global Enqueues, which control access to shared resources. The Global Cache Service (GCS) and Global Enqueue Service (GES) coordinate locks, ensuring data consistency and concurrency while optimizing workload distribution.
+
+Explain Oracle Flex Clusters.
+Oracle Flex Clusters, introduced in Oracle 12c, enhance scalability and efficiency by dividing nodes into Hub Nodes (which manage database processing and cache fusion) and Leaf Nodes (which run applications but rely on hub nodes for cluster management). This architecture reduces interconnect traffic, improves resource utilization, and supports larger deployments, making it a high-performance and cost-effective clustering solution for enterprise environments.
+
+Why RAC has separate undo tablespace for each node?
+Oracle RAC requires a separate UNDO tablespace for each instance to:
+
+Avoid contention – Prevents multiple instances from accessing the same undo segments.
+Ensure read consistency – Each instance maintains its own undo for queries and recovery.
+Improve performance – Reduces inter-instance communication and undo block conflicts.
+Enable faster recovery – Each instance handles its own undo during crash recovery.
+What is a Virtual IP (VIP) in Oracle RAC?
+A VIP is an IP address that is assigned to a RAC node and fails over to another node if the original node goes down, ensuring uninterrupted client connections.
+
+What are the initialization parameters that must have the same value for every instance in an Oracle RAC database?
+ACTIVE_INSTANCE_COUNT
+ARCHIVE_LAG_TARGET
+COMPATIBLE
+CLUSTER_DATABASE
+CLUSTER_DATABASE_INSTANCE
+CONTROL_FILES
+DB_BLOCK_SIZE
+DB_DOMAIN
+DB_FILES
+DB_NAME
+DB_RECOVERY_FILE_DEST
+DB_RECOVERY_FILE_DEST_SIZE
+DB_UNIQUE_NAME
+INSTANCE_TYPE
+PARALLEL_MAX_SERVERS
+REMOTE_LOGIN_PASSWORD_FILE
+UNDO_MANAGEMENT
+
+What is local OCR or Oracle Local Registry (OLR)?
+The Oracle Local Registry (OLR) is stored at:
+
+Linux/Unix: /etc/oracle/local.ocr
+Solaris: /var/opt/oracle/local.ocr
+It contains node-specific cluster configuration details required for Oracle Clusterware startup.
+
+What is a Voting file/disk and how many files should be there?
+A Voting Disk is a critical component in Oracle RAC that helps nodes communicate and determine cluster quorum. It prevents split-brain scenarios by ensuring at least 50% +1 nodes are active for cluster integrity. Oracle recommends having a minimum of three voting disks for redundancy.
+
+What is the maximum number of voting disks we can configure?
+We can configure upto 15 voting disk.( from 11g onward).
+
+What is the difference between cr block and cur (current) block?
+In Oracle RAC:
+
+CR Block (Consistent Read Block): A past image of a data block used for read consistency, reconstructed from undo data.
+CUR Block (Current Block): The most recent version of a data block, modified in the buffer cache and needed for updates or inserts.
+How to recover OCR file?
+Recover the OCR file in Oracle RAC using the command:
+
+ocrconfig -restore <backup_file>
+ ocrconfig -import file_name.dmp
+What is Transparent Application Failover (TAF)?
+TAF allows a client session to reconnect to another RAC instance automatically if the original connection fails.
+
+If MGMTDB is not coming up for any reason, then what will be the impact on the existing databases?
+No impact on existing database, it will just give warning.
+
+How to take backup of OCR file?
+Take a manual backup of the OCR file in Oracle RAC using the command:
+
+ocrconfig -manualbackup
+To view existing backups and their locations, use:
+
+ocrconfig -showbackup
+Who will take backup of OCR files?
+Oracle Clusterware automatically takes OCR backups every 4 hours, and DBAs can manually back it up using the ocrconfig -backup command.
+
+ What is load balancing advisory?
+Load Balancing Advisory in Oracle RAC provides real-time recommendations to distribute workload efficiently across database instances. It helps optimize performance by directing connections to the least loaded and best-performing instance based on service quality metrics. This improves response time and overall cluster efficiency.
+
+Why is Clusterware installed in the root user (why not in the oracle user)?
+Oracle Clusterware is installed as the root user because it requires access to system resources, manages cluster-wide services, and controls networking, shared storage, and inter-node communication. The oracle user lacks the necessary OS-level privileges to configure and manage these critical components.
+
+Who will manage OCR files?
+Oracle Clusterware manages OCR files, while DBAs oversee maintenance, backups, and recovery using ocrconfig commands.The Cluster Synchronization Services Daemon (CSSD) in Oracle RAC manages cluster node membership, monitors node health, and ensures synchronization by handling voting disk communication.
+
+What is IO fencing?
+I/O Fencing (also called Disk Fencing) in Oracle RAC prevents split-brain scenarios by restricting a failed or unresponsive node’s access to shared storage. This ensures data integrity by allowing only active, healthy nodes to perform read/write operations.
+
+Can i have 7 voting disks in a 3 node RAC? Let’s say in your grid setup currently only 3 voting disks are present. How can we make it 7?
+Yes, you can have 7 voting disks in a 3-node RAC, as Oracle allows an odd number of voting disks (1, 3, 5, 7, etc.) for quorum-based failure handling.
+
+To increase from 3 to 7 voting disks, use the following command:
+
+$ crsctl replace votedisk +<DISKGROUP>
+This replaces existing voting disks and automatically adjusts the count based on ASM redundancy. Alternatively, to manually add disks:
+
+$ crsctl add votedisk +<DISKGROUP>/<VOTING_DISK_FILE>
+Verify the change using:
+
+$ crsctl query css votedisk
+Restart Clusterware if required:
+
+$ crsctl stop crs  
+$ crsctl start crs
+ 
+
+Suppose someone has changed the permission of files inside grid_home. How you will fix it?
+You can run rootcr.sh -init command to revert the permission.
+
+# cd <GRID_HOME>/crs/install/
+# ./rootcrs.sh -init
+
+Alternatively you can check the below files under $GRID_HOME>/crs/utl/<hostname>/
+
+– crsconfig_dirs which has all directories listed in <GRID_HOME> and their permissions
+
+– crsconfig_fileperms which has list of files and their permissions and locations in <GRID_HOME>.
+
+Difference between crsctl and srvctl?
+crsctl and srvctl are Oracle Clusterware command-line utilities with different purposes. crsctl is used for managing cluster-related components, such as starting/stopping Clusterware, checking node status, and managing voting disks. srvctl is used for managing Oracle RAC resources like databases, instances, services, and listeners. While crsctl operates at the cluster level, srvctl focuses on managing Oracle services within the cluster.
+
+What data we need to check in vmstat and iostat output?
+vmstat (CPU & Memory Performance)
+r (Run Queue) – High values indicate CPU bottlenecks.
+us, sy, id, wa (CPU Usage) – High %wa (I/O wait) suggests disk issues.
+si, so (Swap In/Out) – Frequent swapping indicates memory pressure.
+iostat (Disk I/O Performance)
+%util – If near 100%, disk is overloaded.
+await (Average Wait Time) – High values indicate slow I/O performance.
+svctm (Service Time) – Should be low; high values suggest storage issues.
+tps (Transactions per Second) – Indicates disk activity level.
+What is a split brain?
+When database nodes in a cluster are unable to communicate with each other, they may continue to process and modify the data blocks independently. If the same block is modified by more than one instance, synchronization/locking of the data blocks does not take place and blocks may be overwritten by others in the cluster. This state is called split brain.
+
+Explain different ways to find master node in oracle rac?
+In Oracle RAC, the master node manages global resource coordination. You can find the master node using several methods:
+
+crsctl command – Run:
+crsctl query css master
+OCR dump – Check the master node in the OCR configuration.
+Alert logs – Review the alert.log files for messages about the master node.
+GV$ views – Query GV$INSTANCE or GV$GES_RESOURCE for master-related details.
+ 
+
+What is the difference between Crash recovery and Instance recovery?
+When an instance crashes in a single node database on startup a crash recovery takes place. In a RAC environment, the same recovery for an instance is performed by the surviving nodes called Instance recovery.
+
+Where the OLR is stored? When olr backup is created.
+The Oracle Local Registry (OLR) is stored on each node in the file /etc/oracle/olr.loc. OLR backups are automatically created whenever there is a change in the OLR configuration, such as node addition or removal. The backup is typically stored in $GRID_HOME/cdata/<hostname>/ and can also be manually backed up using:
+
+ocrconfig -local -manualbackup
+Explain the steps for node addition in oracle rac.
+Run gridsetup.sh from any of the existing nodes and select for add node option and then proceed with the rest of part.
+Now extend the oracle_home to the new node using addnode.sh script( from existing node)
+Now run dbca from the existing node and add the new instance.
+ 
+What utility allows for checking flex mode and cluster mode in Oracle Clusterware?
+The ASM CMD utility is used to check flex mode and cluster mode in Oracle Clusterware.
+
+ASM is running , but the database is not coming up? What might be the issue?
+If ASM is running but the database is not starting, it could be due to missing or unmounted ASM disk groups, incorrect database parameter settings, or an unavailable SPFILE. Another common issue is the listener not running, preventing database connections. Cluster services might also be down, impacting database startup. Additionally, resource constraints such as insufficient memory, CPU, or storage space can cause startup failures. Checking the alert logs, ASM logs, and verifying the cluster and listener status can help identify and resolve the issue.
+
+What is dynamic remastering?
+Dynamic Remastering in Oracle RAC is the process of transferring ownership of frequently accessed database blocks from one instance to another based on workload patterns. This helps reduce interconnect traffic and improves performance by keeping block ownership closer to the instance that accesses them the most.
+
+What benefits does Oracle Clusterware architecture offer?
+Oracle Clusterware architecture offers benefits such as reduced system contention and loads, improved scalability, reduced costs on security infrastructure management, and low-cost hardware.
+It also allows for more scalable applications, the ability to fail over nodes, increased throughput on demand, and the ability to monitor and restart processes.
+Data centre server roomThe ASM CMD utility is used to check flex mode and cluster mode in Oracle Clusterware.
+
+What is GES and GCS?
+GES (Global Enqueue Service) and GCS (Global Cache Service) are components of Oracle RAC that manage shared resources and data consistency across instances. GES controls access to shared database resources using global locks, while GCS manages data block transfers between instances to ensure cache coherency. Together, they enable efficient data sharing and concurrency in RAC environments.
+
+ What is OCR and what it contains?
+The Oracle Cluster Registry (OCR) is a vital component of Oracle Clusterware that stores cluster configuration details, including node membership, database services, voting disk locations, and resource profiles. It ensures proper cluster coordination and high availability.
+
+What are some RAC related wait events?
+Some common RAC-related wait events include:
+
+gc cr request – Waiting for a consistent read block from another instance.
+gc current request – Waiting for the current block from another instance.
+gc buffer busy acquire/release – Contention while accessing a buffer in the global cache.
+gc block lost – A requested block was lost due to network issues.
+gc current block busy – The requested block is being modified by another session.
+Someone deleted the olr file by mistake and currently no backups are available . What will be the impact and how can you fix it?
+If OLR is missing , then if the cluster is already running, then cluster will run fine. But if you try to restart it , It will fail.
+So you need to do below activities.
+
+What is MTU ? How much MTU is recommended in oracle RAC?
+MTU (Maximum Transmission Unit) is the maximum packet size that can be transmitted over a network without fragmentation. In Oracle RAC, a higher MTU improves interconnect performance by reducing overhead. Oracle recommends setting MTU to 9000 (Jumbo Frames) for private interconnects to enhance cluster communication efficiency, provided the network infrastructure supports it.
+
+Is RAC on VMWare supported?
+yes
+
+What is Flex Cluster introduced in oracle 12c?
+Flex Cluster (introduced in Oracle 12c) is an enhanced RAC architecture with two types of nodes:
+
+Hub Nodes – Perform database processing and maintain full cluster functionality.
+Leaf Nodes – Lightweight nodes that rely on hub nodes for cluster management and only run applications or ASM clients.
+Advantages:
+Scalability – Supports large-scale deployments.
+Reduced Interconnect Traffic – Leaf nodes do not participate in cache fusion.
+Improved Resource Utilization – Ideal for applications that do not need full cluster services.
+
+Explain the use of interconnect?
+It is a private network that is used to ship data blocks from one instance to another for cache fusion. The physical data blocks, as well as data dictionary blocks, are shared across this interconnect.
+
+Is it possible to use ASM for the OCR and voting disk?
+No, the OCR and voting disk must be on raw or CFS (cluster file system).
+
+What are the wait events in RAC?
+gc buffer busy acquire
+gc current request
+gc cr request
+gc cr failure
+gc current block lost
+gc cr block lost
+gc current block corrupt
+gc cr block corrupt
+gc current block busy
+gc cr block busy
+gc current block congested
+gc cr block congested.
+gc current block 2-way
+gc cr block 2-way
+gc current block 3-way
+gc cr block 3-way
+(even if we have n number of nodes, there can be only 3-way wait event)
+gc current grant 2-way
+gc cr grant 2-way
+gc current grant busy
+gc current grant congested
+gc cr grant congested
+gc cr multi block read
+gc current multi block request
+gc cr multi block request
+gc cr block build time
+gc current block flush time
+gc cr block flush time
+gc current block send time
+gc cr block send time
+gc current block pin time
+gc domain validation
+gc current retry
+ges inquiry response
+gcs log flush sync
+
+ If olr file is missing ,How can you restore olr file from backup
+# crsctl stop crs -f
+# touch $GRID_HOME/cdata/<node>.olr
+# chown root:oinstall $GRID_HOME/cdata/<node>.olr
+# ocrconfig -local -restore $GRID_HOME/cdata/<node>/backup_<date>_<num>.olr
+# crsctl start crs
+
+Mention what is new feature in Oracle ASM
+The new feature added in Oracle ASM 12c is Oracle Flex ASM. Its a new ASM deployment model which increases instance database availability and reduces the Oracle ASM related resource consumption.
+
+How do you determine what protocol is being used for Interconnect traffic?
+One of the ways is to look at the database alert log for the time period when the database was started.
+
+Mention how Oracle Flex ASM works?
+Oracle Flex ASM instance when fails on a particular node, then the Oracle Flex ASM instance is passed over to another node in the cluster.
+
+Why is it important to create a separate ATL home on each instance when installing Oracle Rac?
+Creating a separate ATL home on each instance allows for better management advantages, out-of-place patching, and eliminating database downtime in multi-node cluster environments.
+
+What is a CFS?
+A cluster File System (CFS) is a file system that may be accessed (read and write) by all members in a cluster at the same time. This implies that all members of a cluster have the same view.
+
+Mention how can you determine what protocol is being used for Interconnect traffic?
+To determine what protocol is being used for Interconnect traffic you can look at the database alert log for the time period when the database was started up.
+
+Can we start crs in exclusive mode? and its purpose?
+Yes, Oracle Clusterware (CRS) can be started in exclusive mode. It is used for maintenance tasks, troubleshooting, and ensuring isolation of a single node from the cluster to perform critical operations without affecting other nodes’ services.
+
+What is an OCFS2?
+The OCFS2 is the Oracle (version 2) Cluster File System which can be used for the Oracle Real Application Cluster.
+
+What is disktimeout and miscount ?
+DiskTimeout and Miscount are Oracle Clusterware parameters that control node eviction behavior in a RAC environment:
+
+DiskTimeout: The time (in seconds) a node waits for a response from the voting disk before considering it unavailable (default: 200s).
+Miscount: The time (in seconds) a node waits before declaring another node as unreachable due to missed heartbeats (default: 30s).
+ 
+Explain the steps for node deletion.
+Delete the instance usind dbca
+Deinstall ORACLE_HOME from $ORACLE_HOME/deinstall
+Run gridsetup.sh and select delete node option
+ 
+What methods are available to keep the time synchronized on all nodes in the cluster?
+Either the Network Time Protocol(NTP) can be configured or in 11gr2, Cluster Time Synchronization Service (CTSS) can be used.
+
+What is gc block lost?
+GC Block Lost in Oracle RAC occurs when a requested global cache block fails to transfer due to network or resource issues, impacting performance.
+
+How can i get the cluster name in RAC?
+olsnodes -c
+
+Explain the backup frequency of OCR.
+Oracle Clusterware automatically backs up the Oracle Cluster Registry (OCR) every 4 hours, retaining the last 3 backups. Additionally, it keeps daily backups for the last day and weekly backups for the last week. These backups are stored in the $GRID_HOME/cdata/<cluster_name>/ directory and can be manually backed up using:
+
+ocrconfig -showbackup
+asm spfile location is missing inside gpnp profile, Then how will asm instance startup?
+For this, we need to understand the  search order of asm spfile
+
+ First it will check for asm spfile location inside gpnp profile
+If no entry is found inside gpnp profile, then it will check the default path $ORACLE_HOME/dbs/spfile+ASM.ora or a pfile.
+ 
+What is Oracle Flex ASM and what are its benefits?
+Oracle Flex ASM is a feature that allows for managing Oracle ASM instances on separate physical servers, supporting larger cluster setups, and reducing Oracle ASM portrayer or other systems.
+
+What is the role of LMON background process?
+The LMON (Global Enqueue Service Monitor) background process in Oracle RAC manages and monitors global resources, including global enqueue locks and resources. It helps ensure consistency and coordination across multiple instances in the RAC cluster by managing distributed lock management and resolving lock conflicts.
+
+How can we improve global cache performance?
+We can increase the number of LMS processes, by increasing gc_server_process.
+We can set “_high_priority_processes”=”LMS*|LGWR*”
+What file components in RAC must reside on shared storage?
+Spfiles, ControlFiles, Datafiles, and Redolog files should be created on shared storage.
+
+If crs is not coming up , then what are things you will start looking into?
+If CRS is not coming up, I would start by checking logs, reviewing alert logs, verifying dependencies, checking disk space, reviewing configuration files, verifying permissions, checking cluster interconnect, reviewing OS logs, checking cluster health, and investigating hardware failures.
+
+What is TAF in oracle RAC?
+BASIC
+PRECONNECT
+SELECT  FAILOVER
+SESSION FAILOVER
+
+Where does the Clusterware write when there is a network or Storage missed heartbeat?
+The network ping failure is written in $CRS_HOME/log
+
+How do you find out what OCR backups are available?
+The OCR config – shows backup can be run to find out the automatic and manually run backups.
+
+ OCR file has been corrupted, there is no valid backup of OCR. What will be the action plan?
+In this case , we need to deconfig and reconfig.
+deconfig can be done using rootcrs.sh -deconfig option
+and reconfig can be done using gridsetup.sh script.
+
+What is node weightage?
+Prior to 12cR2 , during node eviction,  node with lower number ( i.e which node joined the cluster first) survives .
+But in 12cR2, node weightage concept has been introduced. I.e the node having more number of services or workload will survive the eviction.
+There is another option to assign weightage to the services/databases using  -css_critical=yes in srvctl database/service .
+
+Explain about local_listener and remote_listener parameter in RAC?
+Local_listener:
+
+Definition: This parameter specifies the network address that an Oracle RAC instance uses to listen for local connection requests.
+
+Purpose: The local listener is responsible for managing connection requests originating from the same node where the instance is running.
+
+Configuration: The local_listener parameter is set to a TNS entry or a net service name that resolves to a network address (hostname and port) where the local listener is running.
+
+ALTER SYSTEM SET LOCAL_LISTENER = ‘mydb_listener’ SCOPE=both;
+Here, ‘mydb_listener’ is a TNS entry pointing to the local listener’s address.
+
+Remote_listener:
+
+Definition: This parameter specifies one or more network addresses that an Oracle RAC instance uses to listen for remote connection requests from other instances in the cluster.
+
+Purpose: The remote listener facilitates communication between instances on different nodes in the RAC cluster.
+
+Configuration: The remote_listener parameter is set to a list of TNS entries or net service names that resolve to network addresses (hostnames and ports) where the remote listeners are running on other nodes in the cluster.
+
+ALTER SYSTEM SET REMOTE_LISTENER = ‘node1_listener, node2_listener’ SCOPE=both;
+Here, ‘node1_listener’ and ‘node2_listener’ are TNS entries pointing to the remote listeners on different nodes.
+
+If your OCR is corrupted what options do have to resolve this?
+You can use either the logical or the physical OCR backup copy to restore the Repository.
+
+How do you find out what object has its blocks being shipped across the instance the most?
+You can use the dba_hist_seg_stats.
+
+What is client side load balancing and server side load balancing?
+Client-side load balancing: Clients distribute requests across multiple servers, deciding which server to connect to based on various algorithms such as round-robin or least connections.
+
+Server-side load balancing: Load balancing is handled by a dedicated device or software component, such as a load balancer or proxy server, which distributes incoming requests among multiple servers based on predefined algorithms and server health checks.
+
+ How to apply patch manually in RAC?
+First do  you the patch conflict check against the OH.
+
+Then rootcrs.sh -prepatch to unlock the crs ( without unlocking the crs, opatch utility cannot do any modification to the grid home)
+
+Then opatch apply ( to apply the patch)
+
+Then rootcr.sh -postpatch to lock the crs
+
+What is the role of ASM and ASM Volume Manager in managing data-based clients in a multi-node cluster environment?
+ASM and ASM Volume Manager are essential components for managing data-based clients in a multi-node cluster environment, optimizing database management, and reducing the need for Oracle ASM portraver or other systems.
+
+ How you find out issue with private interconnect?
+You can use traceroute to check if any issue with data transfer in private interconnect.
+
+How do we know which database instances are part of a RAC cluster?
+You can query the V$ACTIVE_INSTANCES view to determine the member instances of the RAC cluster.
+
+What are the RAC related background processes?
+LMSn (Lock Manager Server): Manages global resource coordination and distributed locks across RAC instances.
+
+LMD (Lock Manager Daemon): Coordinates lock-related messaging among RAC instances and manages lock conversion requests.
+
+LMON (Global Enqueue Service Monitor): Monitors global resources and manages global enqueue services, such as space allocation for global resources.
+
+LMSn (Global Cache Service Process): Handles cache fusion operations by transferring data blocks between RAC instances to maintain cache coherence.
+
+GCR (Global Cache Service Resources): Coordinates global cache resources and manages cache fusion and resource requests.
+
+GCS (Global Cache Service): Manages the global cache and facilitates cache fusion operations between RAC instances.
+
+RMSn (Resource Manager Server): Controls resource allocation and prioritization for database sessions based on resource management policies.
+
+RBAL (Rebalance): Coordinates instance and resource rebalancing operations to maintain workload distribution across RAC instances.
+
+MMON (Manageability Monitor): Monitors database and instance health, collecting statistics and managing advisory components.
+
+MMNL (Manageability Monitor Light): Light version of MMON for low-priority monitoring tasks.
+
+DIA0 (Diagnosability Process): Handles diagnostic data collection and monitoring for cluster-related issues.
+
+LREG (Local Enqueue Service Registration): Registers local enqueue services with the Global Cache Service (GCS).
+
+What are the advantages of distribution in Oracle RAC?
+The advantages of distribution in Oracle RAC include balancing connection requests across multiple instances, preventing a single instance from being overloaded, and enabling parallel processing across three instances for improved performance and scalability.
+
+What is OCLUMON used for in a cluster environment?
+The Cluster Health Monitor (CHM) stores operating system metrics in the CHM repository for all nodes in a RAC cluster. It stores information on CPU, memory, process, network, and other OS data, This information can later be retrieved and used to troubleshoot and identify any cluster-related issues.
+
+It is a default component of the 11gr2 grid install. The data is stored in the master repository and replicated to a standby repository on a different node.
+
+Tell about thethe role of Google Net Services client access in Oracle RAC?
+Google Net Services client access is used to distribute connection requests across multiple instances in Oracle R A C.
+
+Can i have 7 voting disks in a 3 node RAC? Let’s say in your grid setup currently only 3 voting disks are present. How can we make it 7?
+Yes, you can have 7 voting disks in a 3-node RAC, as Oracle allows an odd number of voting disks (1, 3, 5, 7, etc.) for quorum-based failure handling.
+
+To increase from 3 to 7 voting disks, use the following command:
+
+$ crsctl replace votedisk +<DISKGROUP>
+This replaces existing voting disks and automatically adjusts the count based on ASM redundancy. Alternatively, to manually add disks:
+
+$ crsctl add votedisk +<DISKGROUP>/<VOTING_DISK_FILE>
+Verify the change using:
+
+$ crsctl query css votedisk
+Restart Clusterware if required:
+
+$ crsctl stop crs  
+$ crsctl start crs
+Would you like guidance on best practices for voting disk placement?
+
+What would be the possible performance impact in a cluster if a less powerful node (e.g. slower CPUs) is added to the cluster?
+All processing will show down to the CPU speed of the slowest server.
+
+How instance recovery happens in oracle RAC?
+When any one of the instance is crashed in RAC, then this node failure is detected by the surviving instances. Now the GRD resouces will be distributed across the existing instances. The instance which first detects the crash, will the start the online redo log thread of the crashed instance.  The SMON of that instance.
+
+Sequence
+
+Normal RAC operation, all nodes are available.
+One or more RAC instances fail.
+Node failure is detected.
+Global Cache Service (GCS) reconfigures to distribute resource management to the surviving instances.
+The SMON process in the instance that first discovers the failed instance(s) reads the failed instance(s) redo logs to determine which blocks have to be recovered.
+SMON issues requests for all of the blocks it needs to recover.  Once all blocks are made available to the SMON process doing the recovery, all other database blocks are available for normal processing.
+Oracle performs roll forward recovery against the blocks, applying all redo log recorded transactions.
+Once redo transactions are applied, all undo records are applied, which eliminates non-committed transactions.
+Database is now fully available to surviving nodes. will read the redo to do rollforward ( i.e to apply both committed and noncommited data). Once rollforward is done, it will rollback the uncommited transactions using UNDO tablespace of the failed instance.
+What is the default memory allocation for ASM?
+In 10g the default SGA size is 1G in 11g it is set to 256M and in 12c ASM it is set back to 1G.
+
+What is Data Guard and how does it relate to Oracle?
+Data Guard is a feature in Oracle that provides disaster recovery solutions.
+
+How does Oracle RAC manage and distribute redo log entries across instances?
+Oracle RAC uses Cache Fusion to efficiently distribute redo log entries across instances. This mechanism enables direct sharing and exchange of modified data blocks in the buffer cache, minimizing disk I/O. Redo log entries generated by one instance are transmitted and applied to relevant blocks on other instances, ensuring data consistency and synchronization across the cluster.
+
+How does Oracle RAC handle data consistency during write operations, and what is the role of the Global Cache Service (GCS)?
+Oracle RAC ensures data consistency using Cache Fusion and Global Cache Service (GCS). GCS tracks block ownership, manages locks (Exclusive & Shared), and coordinates inter-instance block transfers via Cache Fusion, reducing disk I/O. Past Image (PI) blocks ensure read consistency, while Redo and Undo maintain durability. GCS ensures cache coherency, lock management, and high performance in a multi-node RAC setup.
+
+How do you back up ASM Metadata?
+You can use md_backup to restore the ASM disk group configuration in case of ASM disk group storage loss.
+
+What files can be stored in the ASM disk group?
+In 11g the following files can be stored in ASM disk groups.
+
+Datafiles
+Redo logfiles
+Spfiles
+In 12c the files below can also now be stored in the ASM Diskgroup
+
+Password file
+What is the ASM POWER_LIMIT?
+This is the parameter that controls the number of Allocation units the ASM instance will try to rebalance at any given time. In ASM versions less than 11.2.0.3 the default value is 11 however it has been changed to unlimited in later versions.
+
+Can we have multiple SCAN(name) in a RAC?
+From 12c onwards, We can have multiple scan with different subnets. As part of installation only scan will be configured. Post installation we need to configure another SCAN with different subnet( If required).
+
+ What is a rolling upgrade?
+Ans: A patch is considered rolling if it is can be applied to the cluster binaries without having to shut down the database in a RAC environment. All nodes in the cluster are patched in a rolling manner, one by one, with only the node which is being patched unavailable while all other instances open.
+
+What are some of the RAC-specific parameters?
+Some of the RAC parameters are:
+
+CLUSTER_DATABASE
+CLUSTER_DATABASE_INSTANCE
+INSTANCE_TYPE (RDBMS or ASM)
+ACTIVE_INSTANCE_COUNT
+UNDO_MANAGEMENT
+In RAC, where we define the SCAN?
+We can define SCAN with below 2 option.
+
+Using corporate DNS
+
+Using Oracle GNS( Grid naming service)
+
+What is the future of the Oracle Grid?
+The Grid software is becoming more and more capable of not just supporting HA for Oracle Databases but also other applications including Oracle’s applications. With 12c there are more features and functionality built-in and it is easier to deploy these pre-built solutions, available for common Oracle applications.
+
+What components of the Grid should I back up?
+The backups should include OLR, OCR, and ASM Metadata.
+
+ Is there an easy way to verify the inventory for all remote nodes?
+You can run the OPATCH LSINVENTORY -ALL_NODES command from a single node to look at the inventory details for all nodes in the cluster.
+
+What g stand for in views like gv$session , gv$sql etc.?
+In Oracle Database, the “g” in views like gv$session, gv$sql, and similar views stands for “Global.” These views provide a global or cluster-wide perspective of database activity and resources in Oracle Real Application Clusters (RAC) environments.
+
+The “gv” prefix indicates that these views are “Global Views,” meaning they aggregate information from all instances in the RAC cluster. They allow administrators and users to monitor and manage database resources and activities across all nodes in the cluster from a single point of access.
+
+Why should we have seperate homes for ASm instance?
+Ans:It is a good practice to have ASM home seperate from the database hom(ORACLE_HOME).This helps in upgrading and patching ASM and the Oracle database software independent of each other.Also,we can deinstall the Oracle database software independent of the ASM instance.
+
+What is the advantage of using ASM?
+Having ASM is the Oracle recommended storage option for RAC databases as the ASM maximizes performance by managing the storage configuration across the disks.ASM does this by distributing the database file across all of the
+available storage within our cluster database environment.
+
+What are local registry and cluster registry in RAC Architecture?
+In Oracle RAC architecture, the Oracle Cluster Registry (OCR) is a critical component that stores cluster-wide configuration information, including details about node membership, resources, and voting information. It is shared across all nodes in the cluster and ensures proper coordination and management of the cluster environment. On the other hand, the Oracle Local Registry (OLR) exists on each individual node and contains node-specific configuration details. The OLR is essential for initializing the cluster services on a node before it can access the OCR, allowing the cluster to start up properly even when the shared storage is not yet available.
+
+How is the data architecture connected to the front end in RAC Architecture?
+In Oracle RAC architecture, the data layer (database nodes) is connected to the front-end (applications, users, or web servers) through multiple network components ensuring high availability, load balancing, and seamless access to data.
+
+Users or applications connect to the RAC database using SCAN (Single Client Access Name), which provides a single entry point for the cluster. SCAN resolves to multiple IP addresses that are distributed across the available database nodes, allowing automatic load balancing and failover. Each RAC node has a Virtual IP (VIP) that redirects connections if a node fails, ensuring continuous availability.
+
+The Oracle Net Listener on each node handles client requests and routes them to the appropriate instance. Additionally, Load Balancing Advisory and Services optimize traffic distribution, ensuring that application queries are processed efficiently across all nodes. This architecture ensures that the front end remains connected to the database with minimal disruption, even if a node goes down.
+
+List out the difference between a public and private subnet in RAC Architecture?
+The public subnet is used for external communication, while the private subnet is used for internal communication within the rack.
+
+What happens if an application connects to a different node in RAC Architecture?
+In Oracle RAC, if an application connects to a different node, data consistency is maintained using Global Cache Service (GCS) and Cache Fusion, which transfer data between nodes if needed. Load balancing ensures efficient request distribution, and if a node fails, VIP failover, Transparent Application Failover (TAF), or Fast Connection Failover (FCF) seamlessly reconnects the application to another node, ensuring high availability.
+
+Define a CHF framework in RAC Architecture?
+In Oracle RAC architecture, the CHF (Cluster Health Framework) is a monitoring and diagnostic framework that ensures cluster stability by continuously tracking node health, network, and database processes. It detects failures, triggers automated recovery actions, and helps prevent node evictions. CHF is a key component of Oracle Clusterware, enhancing high availability and reliability in a RAC environment.
+
+Why is the VIP concept important in RAC Architecture?
+The VIP concept is important because it allows for the rack connection to be handed over to the existing or surviving node in case of node failure, ensuring high availability and reliability.
+
+What is gc cr 2 way and gc cr 3 way?
+gc cr 2-way (Global Cache Consistent Read 2-way):
+This wait event occurs when an instance in the RAC environment is waiting for a consistent read block from another instance.
+
+It indicates contention between two instances for access to the same consistent read block in the global cache.
+
+The number “2-way” signifies that the contention is between two instances.
+
+gc cr 3-way (Global Cache Consistent Read 3-way):
+
+Similar to “gc cr 2-way”, this wait event occurs when an instance is waiting for a consistent read block from another instance.
+
+However, “gc cr 3-way” indicates contention among three instances for access to the same consistent read block in the global cache.
+
+It signifies contention between three instances.
+
+What is the role of database listeners in RAC Architecture?
+Database listeners usually listen under VIP addresses, but if a node goes down, the client needs to switch over their connections to maintain availability.
+
+Explain the role of the Global Resource Directory (GRD) in Oracle RAC.
+The Global Resource Directory (GRD) is a key component of Oracle RAC’s Global Cache Service (GCS). It maintains metadata about database blocks and their statuses across all RAC instances.
+
+ How do you add a node to an existing Oracle RAC cluster?
+To add a node to an existing Oracle RAC cluster, you need to install the Oracle Grid Infrastructure software on the new node, configure the network settings, and use the addNode.sh script to extend the cluster to include the new node.
+
+What will happen if I kill the ohasd process in oracle rac node?
+If you kill the OHASD (Oracle High Availability Services Daemon) process in an Oracle RAC node, all Clusterware resources on that node, including CRS, CSSD, and ASM, will stop. The node will be evicted from the cluster if other nodes detect the failure. Oracle Clusterware may attempt to restart OHASD, but if it fails to recover, the node may require a manual restart to rejoin the cluster. This can impact database availability and cluster stability.
+
+ What will happen if I kill the crs process in oracle rac node?
+If you kill the CRS (Cluster Ready Services) process in an Oracle RAC node, all cluster-related services on that node, including CSSD (Cluster Synchronization Services), CRSD (Cluster Resource Services), and OHASD (Oracle High Availability Services Daemon), will stop. This will cause the node to lose communication with the cluster, leading to node eviction if other nodes detect the failure. The node will either reboot automatically or require a manual restart to rejoin the cluster, affecting database and application availability.
+
+Explain the concept of Oracle RAC Connection Affinity.
+Oracle RAC Connection Affinity allows administrators to configure preferred instances for specific services. Clients can connect to these preferred instances, optimizing resource utilization and enhancing connection efficiency. This feature provides greater control over how client connections are distributed across the Oracle RAC cluster, contributing to improved performance and resource management.
+
+Is dynamic remastering good or bad?
+Dynamic remastering in Oracle RAC is generally good as it helps improve performance by relocating Global Enqueue Resources (GEs) to the instance that most frequently accesses them. This reduces inter-instance communication and global cache waits. However, excessive or frequent remastering can cause performance overhead due to the continuous movement of resources. Proper workload distribution and segment affinity tuning are essential to ensure efficient dynamic remastering without unnecessary overhead.
+
+ I have a 3 node RAC. where node 1 is master node. If node 1 is crashed. Then out of node2 and node3 , which node will become master?
+In a 3-node RAC, if Node 1 (master) crashes, the new master will be the node with the lowest node ID among the surviving nodes (Node 2 or Node 3). Oracle Clusterware uses Node Membership Services (NMS) to elect the new master, preferring the lowest-numbered node.
+
+What is Oracle RAC Direct NFS (dNFS)?
+Oracle RAC Direct NFS (dNFS) is a feature enhancing I/O performance in Oracle RAC environments. It enables direct communication between database instances and NFS storage servers. By bypassing the operating system’s NFS client, dNFS reduces I/O latency and improves overall storage efficiency. It enhances scalability and performance by optimizing the interaction between Oracle RAC nodes and NFS storage.
+
+What are the storage structures of a clusterware?
+2 shares storage structure – OCR , VD
+
+2 local storage structure – OLR, GPNP profile.
+
+What is the recommended method to make backups of a RAC environment?
+RMAN to make backups of the database, dd to backup your voting disk and hard copies of the OCR file.
+
+My clusterware version is 11gr2 , can i install oracle 12c database? is the viceversa possible( means clusteware version 12c and oracle database version 11g?)?
+My clusterware version can be same or higher than the the database version. But a 12c database will not work on 11g grid.
+
+What command would you use to check the availability of the RAC system?
+crs_stat -t -v (-t -v are optional)
+
+What is the purpose of the Oracle RAC Database Rolling Upgrade Out of Place feature?
+The Rolling Upgrade Out of Place feature allows administrators to perform a rolling upgrade of an Oracle RAC database by creating a new Oracle home and database while the existing one remains operational. This ensures minimal downtime and a smooth transition to the upgraded environment.
+
+What is OCLUMON used for in a cluster environment?
+The Cluster Health Monitor (CHM) stores operating system metrics in the CHM repository for all nodes in a RAC cluster. It stores information on CPU, memory, process, network and other OS data, This information can later be retrieved and used to troubleshoot and identify any cluster related issues. It is a default component of the 11gr2 grid install. The data is stored in the master repository and replicated to a standby repository on a different node.
+
+What would be the possible performance impact in a cluster if a less powerful node (e.g. slower CPU’s) is added to the cluster?
+All processing will show down to the CPU speed of the slowest server.
+
+What is the minimum number of instances you need to have in order to create a RAC?
+You can create a RAC with just one server.
+
+Can we see DRM( Dynamic Resource Mastering) related information in oracle RAC?
+Yes we can see DRM related data in  gv$gcspfmaster_info  by passing the object_id.
+
+Can you have many database versions in the same RAC?
+Yes, but Clusterware version must be greater than the greater database version.
+
+What is OLR and why it is required?
+The Oracle Local Registry (OLR) is a node-specific registry that stores local cluster configuration details, such as the Oracle Clusterware version and resource information. It is required for cluster startup when the OCR and voting disks are not yet accessible.
+
+ What is Grid infrastructure Management Repository(GIMR)?
+Grid Infrastructure Management Repository (GIMR) is a centralised infrastructure database for diagnostic and performance data and resides in Oracle GI Home. It is a single instance CDB with a single PDB and includes partitioning (for data lifecycle management).
+
+What was RAC previous name before it was called RAC?
+Before it was called RAC (Real Application Clusters), it was known as Oracle Parallel Server (OPS).
+
+ What is Rapid Home Provisioning?
+Rapid Home Provisioning (RHP) is an Oracle feature that enables fast deployment, patching, and management of Oracle homes across multiple servers with minimal downtime.
+
+Suppose I am running a insert statement by connecting to a database using service . And if that instance is crashed, then what will happen to the insert statement?
+If the instance hosting the service crashes while you are running an INSERT statement, the transaction will be rolled back because the session is lost. Oracle RAC will automatically failover the service to an available instance, but your session will be disconnected. You will need to reconnect and re-execute the INSERT statement. If TAF (Transparent Application Failover) or Application Continuity is configured, Oracle can retry the transaction automatically, depending on the failover settings.
+
+What RAC component is used for communication between instances?
+The Interconnect is used for communication between instances in Oracle RAC, facilitating Cache Fusion and global resource coordination.
+
+How do you find out what object has its blocks being shipped across the instance the most?
+You can use the dba_hist_seg_stats.
+
+What is the Cluster Verification Utiltiy (cluvfy)?
+The Cluster Verification Utility (CVU) is a validation tool that you can use to check all the important components that need to be verified at different stages of deployment in a RAC environment.
+
+Who updates OCR and how/when it gets updated?
+Oracle Clusterware updates the OCR (Oracle Cluster Registry) automatically whenever there are changes to cluster configurations, such as adding or removing nodes, modifying resources, or changing voting disk locations. Administrators can also manually update OCR using commands like ocrconfig, and Oracle Clusterware takes automatic backups every 4 hours, daily, and weekly.
+
+How do we know which database instances are part of a RAC cluster?
+You can query the V$ACTIVE_INSTANCES view to determine the member instances of the RAC cluster.
+
+What files can I put on Linux OCFS2?
+For optimal performance, you should only put the following files on Linux OCFS2:
+
+Datafiles
+Control Files
+Redo Logs
+Archive Logs
+Shared Configuration File (OCR)
+Voting File
+SPFILE
+What is the significance of the Oracle RAC Multi-Instance Redo Log feature?
+Multi-Instance Redo Log enables instances to write to multiple redo log groups concurrently, improving performance.
+It reduces contention for the redo log and enhances scalability in write-intensive workloads in Oracle RAC.
+ 
+What is the purpose of the Oracle RAC Wait Events in performance tuning?
+Oracle RAC Wait Events provide detailed information about the reasons for performance bottlenecks. By analyzing these events, administrators can identify resource-intensive operations, monitor wait times, and take corrective actions to optimize the performance of the Oracle RAC database.
+
+Can I change the name of my cluster after I have created it when I am using Oracle Clusterware?
+No, you must properly uninstall Oracle Clusterware and then re-install.
+
+Can there be gc-4-way wait events in 4 node rac?
+No, in a 4-node RAC, you won’t see gc-4-way wait events. Oracle RAC uses gc-2-way and gc-3-way wait events when blocks are transferred between instances. A gc-4-way event would imply coordination among four instances simultaneously, which does not happen. Instead, blocks are transferred in a point-to-point manner between instances, leading to gc-2-way (two instances involved) or gc-3-way (three instances involved) waits.
+
+Why should we have seperate homes for ASm instance?
+It is a good practice to have ASM home seperate from the database hom(ORACLE_HOME).This helps in upgrading and patching ASM and the Oracle database software independent of each other.Also,we can deinstall the Oracle database software independent of the ASM instance.
+
+What are the administrative tools used for Oracle RAC environments?
+Oracle RAC cluster can be administered as a single image using OEM(Enterprise  Manager),SQL*PLUS,Servercontrol(SRVCTL),clusterverificationutility(cvu),DBCA,NETCA
+
+What is preferred and available in a service in RAC?
+In Oracle RAC, a preferred instance for a service is the instance where the service is intended to run under normal conditions. An available instance is a backup instance that runs the service only if the preferred instance fails.
+
+Give situations under which VIP address failover happens
+VIP addresses failover happens when the node on which the VIP address runs fails, all interfaces for the VIP address
+fails, all interfaces for the VIP address are disconnected from the network.
+
+What the O2CB is?
+The O2CB is the OCFS2 cluster stack. OCFS2 includes some services. These services must be started before using OCFS2 (mount/ format the file systems).
+
+Explain the concept of the Oracle RAC Database Rolling Downgrade.
+Rolling Downgrade allows administrators to revert an Oracle RAC database to a previous release without downtime.
+It involves downgrading individual nodes one at a time while the rest of the cluster remains operational.
